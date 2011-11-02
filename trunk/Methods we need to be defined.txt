@@ -1,0 +1,28 @@
+Methods that must be defined:
+	
+VectorXs:
+	* operator for scalar * VectorXs  and VectVectorXs
+	+ operator
+	- operator
+	/ operator for VectorXs / scalar
+	size():scalar or int
+	norm():scalar
+	segment(index:Int):VectorXs (e.g. val x1 = x.segment(2*idx1) )
+	+= operator
+	mutator for segment (e.g. gradE.segment(2*idx2) += force.segment(2);)
+
+Scalar:
+	+ operator
+	* operator
+	- operator
+
+MatrixXs:
+	transpose()
+	* operator for MatrixXs and VectorXs
+	<< operator to append to matrix (e.g. deltaN << -1, 0, 1, 0,
+			   										 0, -1, 0, 1;) to append a list or array to a matrix's rows and columns
+	constructor(rows, columns)
+			
+Some way to get the radius of the particles
+	affected files:
+		PenaltyForce.x10, addGradEToTotal
