@@ -24,6 +24,11 @@ MatrixXs:
 	constructor(rows, columns)
 	getRows()
 	getColumns()
+
+TwoDScene
+	getNumParticles():Int
+	getX()
+	getRadius(index:Int):double
 			
 Some way to get the radius of the particles
 	affected files:

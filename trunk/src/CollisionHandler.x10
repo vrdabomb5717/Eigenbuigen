@@ -25,7 +25,7 @@ public abstract class CollisionHandler
 		m_COR = COR;
 	}
 	
-	public abstract def handleCollisions(oldpos:VectorXs, oldvel:VectorXs, dt:scalar):void;
+	public abstract def handleCollisions(scene:TwoDScene, oldpos:VectorXs, oldvel:VectorXs, dt:scalar):void;
 	
 	public def getCOR():Double
 	{

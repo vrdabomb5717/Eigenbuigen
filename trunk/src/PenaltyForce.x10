@@ -2,31 +2,29 @@ public class PenaltyForce extends Force
 {
 	private var m_k:scalar;
 	private var m_thickness:scalar;
+	private m_scene:TwoDScene;
 	
-	public def this(stiffness:scalar, thickness:scalar)
+	public def this(scene:TwoDScene, stiffness:scalar, thickness:scalar)
 	{
+		m_scene = scene;
 		m_k = stiffness;
 		m_thickness = thickness;
 	}
 
 	public def addEnergyToTotal(x:VectorXs, v:VectorXs, m:VectorXs, E:scalar)
 	{
-
+		// Feel free to implement if you feel like it.
 	}
 	
 	public def addGradEToTotal(x:VectorXs, v:VectorXs, m:VectorXs, r:VectorXs, var gradE:VectorXs)
 	{
-		val num_particles = x.size() / 2;
+		val num_particles = m_scene.getNumParticles();
 		
 		for(var i:Int = 0; i < num_particles; i++)
-	    {
-			val r1 = r(i);
-		
+	    {		
 	        for(var j:Int = i + 1; j < num_particles; j++)
-	        {
-				val r2 = r(j);
-				
-	            addParticleParticleGradEToTotal(x, i, j, r1, r2, gradE);
+	        {				
+	            addParticleParticleGradEToTotal(x, i, j, gradE);
 	        }
 	    }
 	}
@@ -45,13 +43,13 @@ public class PenaltyForce extends Force
 	// Outputs:
 	//   gradE: The total gradient of penalty force. *ADD* the particle-particle
 	//          gradient to this total gradient.
-	public def addParticleParticleGradEToTotal(x:VectorXs, idx1:Int, idx2:Int, r1:Double, r2:Double, var gradE:VectorXs)
+	public def addParticleParticleGradEToTotal(x:VectorXs, idx1:Int, idx2:Int, var gradE:VectorXs)
 	{
 	    val x1 = x.segment(2*idx1);
 	    val x2 = x.segment(2*idx2);
 
-	    // val r1 = m_scene.getRadius(idx1);
-	    // val r2 = m_scene.getRadius(idx2);
+	    val r1 = m_scene.getRadius(idx1);
+	    val r2 = m_scene.getRadius(idx2);
 
 		val n = x2 - x1;
 		val nhat = n / n.norm();
