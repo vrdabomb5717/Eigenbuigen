@@ -28,6 +28,14 @@ public class Matrix
 	
 	public operator this(x:Int, y:Int):double = matrix(x,y) ;
 	
+	public operator this()=( other:Matrix ):void
+	{
+		for( [i,j] in (0..(rows-1))*(0..(columns-1)) )
+		{
+			matrix(i,j) = other(i,j) ;
+		}
+	}
+	
 	public operator this( x:Int, y:Int )=( d:double ):void
 	{
 		matrix(x,y) = d ;
@@ -50,7 +58,7 @@ public class Matrix
 		
 		val result = new Matrix( rows, other.num_columns(), 0d) ;
 		
-		for( [i,j] in (0..(rows-1))*(0..(other.columns-1)) )
+		for( [i,j] in (0..(rows-1))*(0..(other.num_columns()-1)) )
 		{
 			for( [k] in 0..(columns-1) )
 			{
@@ -74,7 +82,7 @@ public class Matrix
 	}
 	
 	public operator this/( other:double ):Matrix = this*(1/other) ;
-	
+		
 	public operator this+( other:Matrix ):Matrix
 	{
 		if( rows != other.num_rows() || columns != other.num_columns() )
