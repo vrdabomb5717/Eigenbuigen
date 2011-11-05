@@ -51,6 +51,11 @@ public class TwoDScene
 
 		m_x(2*particle) = pos;
 	}
+	
+	public def setPosition(pos:VectorXs)
+	{
+		m_x = pos;
+	}
 
 	public def setVelocity( particle:Int, vel:Vector2s )
 	{
@@ -58,6 +63,11 @@ public class TwoDScene
 		assert( particle < getNumParticles() );
 
 		m_v(2*particle) = vel;
+	}
+	
+	public def setVelocity(vel:VectorXs)
+	{
+		m_v = vel;
 	}
 
 	public def setMass( particle:Int, mass:scalar )
@@ -154,7 +164,6 @@ public class TwoDScene
 	{
 		assert( m_x.size() == m_v.size() );
 		assert( m_x.size() == m_m.size() );
-		assert( m_x.size() == (2*m_fixed.size()) as Int);
 	}
 
 	private var m_x:VectorXs;

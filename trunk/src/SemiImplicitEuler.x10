@@ -23,9 +23,12 @@ public class SemiImplicitEuler
 		F /= m;
 		v += (dt*F) as VectorXs;
 
+		scene.setVelocity(v);
+
 		// Step positions forward based on new velocities
 		x += dt*v;
-
+		scene.setPosition(x);
+		
 		return true;	
 	}
 

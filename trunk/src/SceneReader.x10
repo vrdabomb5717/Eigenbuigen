@@ -104,7 +104,7 @@ public class SceneReader
 		
 			for ([i] in 0..(num_particles-1))
 			{ 
-				line = "" + i + " " + mass(i) + " " + pos(i) + " " + pos(i+1) + " " + vel(i) + " " + vel(i+1) + " " + scene.getRadius(i);
+				line = "Particle " + i + " with mass " + mass(i) + " at px = " + pos(i) + " and py = " + pos(i+1) + " and vx = " + vel(i) + " and vy = " + vel(i+1) + " and radius = " + scene.getRadius(i);
 				
 				p.println(line); 
 			} 
