@@ -1,8 +1,10 @@
+import MathDefs.*;
+
 public class SimpleCollisionHandler extends CollisionHandler
-{
-	public def this(COR:Double)
+{	
+	public def this(cor:Double)
 	{
-		super(COR);
+		super(cor);
 	}
 	
 	public def getName():String
@@ -12,11 +14,11 @@ public class SimpleCollisionHandler extends CollisionHandler
 	
 	public def handleCollisions(oldpos:VectorXs, oldvel:VectorXs, dt:scalar)
 	{
-		VectorXs n = new VectorXs(2);
-		
-		for(var i:Int = 0; i < oldpos.size / 2; i++)
+		n:VectorXs = new VectorXs(2);
+
+		for(var i:Int = 0; i < oldpos.size() / 2; i++)
 		{
-			for(var j:Int = i + 1; j < oldpos.size / 2; j++)
+			for(var j:Int = i + 1; j < oldpos.size() / 2; j++)
 			{
 				if(detectParticleParticle(i,j,n))
 				{
@@ -25,12 +27,12 @@ public class SimpleCollisionHandler extends CollisionHandler
 				}
 			}
 		}
-		
+
 	}
 	
-	private def detectParticleParticle(idx1:Int, idx2:Int, n:VectorXs)
+	private def detectParticleParticle(idx1:Int, idx2:Int, n:VectorXs):Boolean
 	{
-		
+		return false;
 	}
 	
 	private def respondParticleParticle(idx1:Int, idx2:Int, n:VectorXs)
