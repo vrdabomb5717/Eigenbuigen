@@ -57,6 +57,16 @@ public class VectorXs extends Matrix
 			this(pos+i) = other(i) ;
 	}
 	
+	public operator this/( other:VectorXs ):VectorXs
+	{
+		val result:VectorXs = new VectorXs( size() ) ;
+		
+		for( [i] in 0..(size()-1) )
+			result(i) = this(i) / other(i) ;
+		
+		return result ;
+	}
+	
 	public def dot( other:VectorXs ):double
 	{
 		var sum:double = 0d ;
