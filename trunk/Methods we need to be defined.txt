@@ -22,6 +22,8 @@ MatrixXs:
 	<< operator to append to matrix (e.g. deltaN << -1, 0, 1, 0,
 			   										 0, -1, 0, 1;) to append a list or array to a matrix's rows and columns
 	constructor(rows, columns)
+	getRows()
+	getColumns()
 			
 Some way to get the radius of the particles
 	affected files:
