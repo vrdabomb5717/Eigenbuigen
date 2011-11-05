@@ -58,7 +58,9 @@ public class SceneReader
 				scene.setRadius(counter, radius);
 				
 				counter++;	
-			} 	
+			}
+			
+			x10.io.Console.OUT.println( "positions of particles: " + scene.getX().toString() ) ;
 		} 
 		catch (ioe:IOException) 
 		{

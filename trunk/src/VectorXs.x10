@@ -123,4 +123,14 @@ public class VectorXs extends Matrix
 	{
 		return new VectorXs( super.transpose() ) ;
 	}
+	
+	public def toString():String
+	{
+		var str:String = "" ;
+		
+		for( [i] in 0..(size()-1) )
+			str += this(i) + ":" ;
+		
+		return str ;
+	}
 }
