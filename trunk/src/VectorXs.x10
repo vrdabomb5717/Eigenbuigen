@@ -95,4 +95,10 @@ public class VectorXs extends Matrix
 		
 		return sum ;
 	}
+	
+	public operator this<<( arg:Array[double] ):void
+	{
+		for( [i] in 0..(size()-1) )
+			this(i) = arg(i) ;
+	}
 }

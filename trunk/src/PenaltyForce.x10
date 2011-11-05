@@ -62,4 +62,11 @@ public class PenaltyForce extends Force
 			gradE(2*idx2) = ( gradE.segment(2*idx2) + m_k * (n.norm() - r1 - r2 - m_thickness ) * nhat ) ;
 		}
 	}
+	
+	public def addGradEToTotal(var x:VectorXs, var v:VectorXs, var m:VectorXs, var gradE:VectorXs):void 
+	{
+    // TODO: auto-generated method stub
+	}
+
+
 }

@@ -11,7 +11,7 @@ public class SemiImplicitEuler
 		// Compute forces using start-of-step state
 		var F:VectorXs = new VectorXs(x.size());
 		F.setZero();
-		scene.accumulateGradU(F);
+		scene.accumulateGradU( F, x, v ) ;
 		// Force is negative the energy gradient
 		F *= -1.0;
 
