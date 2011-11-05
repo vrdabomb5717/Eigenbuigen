@@ -4,4 +4,9 @@ public class VectorXs extends Matrix
 	{
 		super( rows ) ;
 	}
+	
+	public def size():double
+	{
+		return this.num_rows() ;
+	}
 }

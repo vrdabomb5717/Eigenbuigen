@@ -61,9 +61,50 @@ public class Matrix
 		return result ;
 	}
 	
+	public operator this*( other:double ):Matrix
+	{
+		val result:Matrix = new Matrix( rows, columns, 0d) ;
+		
+		for( [i,j] in (0..(rows-1))*(0..(columns-1)) )
+		{
+			result(i,j) = matrix(i,j) * other ;
+		}
+		
+		return result ;
+	}
+	
+	public operator this/( other:double ):Matrix = this*(1/other) ;
+	
+	public operator this+( other:Matrix ):Matrix
+	{
+		if( rows != other.num_rows() || columns != other.num_columns() )
+		{
+			Console.OUT.println( "Matricies most be of same size for addition" ) ;
+			return null ;
+		}
+		
+		val result:Matrix = new Matrix( rows, columns, 0d) ;
+		
+		for( [i,j] in (0..(rows-1))*(0..(columns-1)) )
+			result(i,j) = matrix(i,j) + other(i,j) ;
+		
+		return result ;
+	}
+	
 	public operator this-( other:Matrix )
 	{
+		if( rows != other.num_rows() || columns != other.num_columns() )
+		{
+			Console.OUT.println( "Matricies most be of same size for substraction" ) ;
+			return null ;
+		}
 		
+		val result:Matrix = new Matrix( rows, columns, 0d) ;
+		
+		for( [i,j] in (0..(rows-1))*(0..(columns-1)) )
+			result(i,j) = matrix(i,j) - other(i,j) ;
+		
+		return result ;
 	}
 	
 	public def num_rows():int = rows ;
