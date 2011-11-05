@@ -16,6 +16,8 @@ public class SceneTester
 		val k = Double.parse(args(5));
 		val thickness = Double.parse(args(6));
 		val cor = Double.parse(args(7));
+		
+		Console.OUT.println( "creating: " + num_particles + ":" + dt + ":" + duration ) ;
 
 		val sr = new SceneReader(num_particles);
 

@@ -132,7 +132,7 @@ public class TwoDScene
 
 		for( var i:Int = 0; i < m_forces.size(); ++i ) 
 			m_forces(i).addEnergyToTotal( m_x, m_v, m_m, U );
-			
+		
 		return U;  
 	}
 

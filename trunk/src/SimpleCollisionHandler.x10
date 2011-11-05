@@ -14,12 +14,13 @@ public class SimpleCollisionHandler extends CollisionHandler
 	
 	public def handleCollisions(scene:TwoDScene, oldpos:VectorXs, oldvel:VectorXs, dt:scalar)
 	{
+		Console.OUT.println( "in handle collisions" ) ;
 		n:VectorXs = new VectorXs(2);
 		val num_particles = scene.getNumParticles();
 
-		for(var i:Int = 0; i < num_particles; i++)
+		for( [i] in 0..(num_particles-1) )
 		{
-			for(var j:Int = i + 1; j < num_particles; j++)
+			for( [j] in (i + 1)..(num_particles-1) )
 			{
 				if(detectParticleParticle(scene,i,j,n))
 				{
@@ -33,8 +34,12 @@ public class SimpleCollisionHandler extends CollisionHandler
 	
 	private def detectParticleParticle(scene:TwoDScene, idx1:Int, idx2:Int, var n:VectorXs):Boolean
 	{
+		Console.OUT.println( "in particle collision detected" ) ;
+		
 		val x1 = scene.getX().segment(2*idx1);
 		val x2 = scene.getX().segment(2*idx2);
+		
+		Console.OUT.println( "desting for collision between: " + x1(0) + ":" + x1(1) + " and " + x2(0) + ":" + x2(1) ) ;
 		
 		n = x2 - x1;
 		l:scalar = n.norm();
@@ -46,7 +51,10 @@ public class SimpleCollisionHandler extends CollisionHandler
 		if(l < scene.getRadius(idx1) + scene.getRadius(idx2))
 		{
 			if ( (v1 - v2).dot(n) > 0)
+			{
+				Console.OUT.println( "found particle collision" ) ;
 				return true;
+			}
 		}
 		
 		return false;
