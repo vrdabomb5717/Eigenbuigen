@@ -61,7 +61,10 @@ public class Matrix
 	
 	public operator this*( other:Matrix ):Matrix
 	{
-		assert columns != other.num_rows() : "Columns are not equal to rows:" + columns + ":" + other.num_rows();
+		assert columns == other.num_rows() : 
+			"Columns of this matrix are not equal to rows of other:" + 
+            "\nthis columns: " + columns + 
+            "\nother rows: " + other.num_rows();
 		
 		val result = new Matrix( rows, other.num_columns(), 0d) ;
 		
@@ -94,12 +97,12 @@ public class Matrix
 		
 	public operator this+( other:Matrix ):Matrix
 	{
-		assert rows != other.num_rows() || columns != other.num_columns() : 
+		assert rows == other.num_rows() && columns == other.num_columns() : 
 			"Matricies most be of same size for addition: " + 
-			"this rows: " + rows +
-			"this columns: " + columns +
-			"other rows: " + other.num_rows() +
-			"other columns: " + other.num_columns() ;
+			"\nthis rows: " + rows +
+			"\nthis columns: " + columns +
+			"\nother rows: " + other.num_rows() +
+			"\nother columns: " + other.num_columns() ;
 		
 		val result:Matrix = new Matrix( rows, columns, 0d) ;
 		
@@ -111,12 +114,12 @@ public class Matrix
 	
 	public operator this-( other:Matrix )
 	{
-		assert rows != other.num_rows() || columns != other.num_columns() :
+		assert rows == other.num_rows() && columns == other.num_columns() :
 			"Matricies most be of same size for addition: " + 
-			"this rows: " + rows +
-			"this columns: " + columns +
-            "other rows: " + other.num_rows() +
-            "other columns: " + other.num_columns() ;
+			"\nthis rows: " + rows +
+			"\nthis columns: " + columns +
+            "\nother rows: " + other.num_rows() +
+            "\nother columns: " + other.num_columns() ;
 		
 		val result:Matrix = new Matrix( rows, columns, 0d) ;
 		
