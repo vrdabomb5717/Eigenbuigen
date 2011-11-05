@@ -1,11 +1,6 @@
-import x10.matrix.*;
+import Matrix ;
 
-public class MathDefs[T]
+public class MathDefs
 {
-	var m:Matrix[T] ;
-	
-	def Matrix2s()
-	{
-		m = new Matrix( 2, 2 ) ;
-	}
+	static type scalar = double ;
 }

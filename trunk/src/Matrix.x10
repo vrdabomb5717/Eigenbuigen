@@ -7,7 +7,7 @@ public class Matrix
 	
 	public def this( m:int, n:int )
 	{
-		matrix = new Array[double]((0..(m-1)) * (0..(n-1)), 0 ) ;
+		matrix = new Array[double]((0..(m-1)) * (0..(n-1)), 0d ) ;
 		rows = m ;
 		columns = n ;
 	}
@@ -17,6 +17,13 @@ public class Matrix
 		matrix = new Array[double]((0..(m-1)) * (0..(n-1)), v ) ;
 		rows = m ;
 		columns = n ;
+	}
+	
+	public def this( m:int )
+	{
+		matrix = new Array[double]((0..(m-1))*(0..0), 0d ) ;
+		rows = m ;
+		columns = 1 ;
 	}
 	
 	public operator this(x:Int, y:Int):double = matrix(x,y) ;
@@ -41,13 +48,13 @@ public class Matrix
 			return null ;
 		}
 		
-		val result = new Matrix( rows, other.num_columns(), 0.0d ) ;
+		val result = new Matrix( rows, other.num_columns(), 0d) ;
 		
 		for( [i,j] in (0..(rows-1))*(0..(other.columns-1)) )
 		{
 			for( [k] in 0..(columns-1) )
 			{
-				matrix(i,k) += matrix(i,k) * other(k,j) ;
+				result(i,k) += matrix(i,k) * other(k,j) ;
 			}
 		}
 		
