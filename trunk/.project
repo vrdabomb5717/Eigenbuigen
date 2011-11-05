@@ -25,11 +25,4 @@
 		<nature>x10dt.ui.launch.java.x10nature</nature>
 		<nature>org.eclipse.imp.smapifier.smapinature</nature>
 	</natures>
-	<linkedResources>
-		<link>
-			<name>x10</name>
-			<type>2</type>
-			<location>/Users/nathanielclinger/Desktop/x10</location>
-		</link>
-	</linkedResources>
 </projectDescription>
