@@ -56,4 +56,14 @@ public class VectorXs extends Matrix
 		for( [i] in 0..(other.size()-1) )
 			this(pos+i) = other(i) ;
 	}
+	
+	public def dot( other:VectorXs ):double
+	{
+		var sum:double = 0d ;
+		
+		for( [i] in 0..(size()-1) )
+			sum += this(i) * other(i) ;
+		
+		return sum ;
+	}
 }
