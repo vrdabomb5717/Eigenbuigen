@@ -28,13 +28,14 @@ public class SceneReader
 			
 			for (line in input.lines())
 			{ 
-				split = line.trim().split("\\s+");
+				val line1 = line.trim();
+				split = line1.split(" ");
 				
 				// mass px py vx vy radius
 				
 				if(split.size < 6)
-				{
-					x10.io.Console.OUT.println("Incorrect number of arguments on line " + (counter + 1) + ".");
+				{	
+					x10.io.Console.OUT.println("Incorrect number of arguments on line " + (counter + 1) + ". Arguments provided: " + split.size +". " + line1);
 					return;
 				}
 				
