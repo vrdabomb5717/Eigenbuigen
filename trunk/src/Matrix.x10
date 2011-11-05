@@ -28,7 +28,6 @@ public class Matrix
 	
 	public def this( other:Matrix )
 	{
-		Console.OUT.println( other.num_rows() + ":" + other.num_columns() ) ; 
 		matrix = new Array[double]((0..(other.num_rows()-1))*(0..(other.num_columns()-1)), 0d ) ;
 		rows = other.num_rows() ;
 		columns = other.num_columns() ;
