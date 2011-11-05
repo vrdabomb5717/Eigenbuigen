@@ -1,4 +1,4 @@
-import MathDefs;
+import MathDefs.*;
 
 public abstract class Force
 {
