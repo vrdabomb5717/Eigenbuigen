@@ -54,11 +54,8 @@ public class SceneReader
 				scene.setPosition(counter, pos);
 				scene.setVelocity(counter, vel);
 				scene.setMass(counter, mass);
-				scene.setRadius(counter, radius);
-				
-			} 
-
-			
+				scene.setRadius(counter, radius);	
+			} 	
 		} 
 		catch (ioe:IOException) 
 		{
@@ -89,22 +86,32 @@ public class SceneReader
 	
 	public def write(outputFileName:String)
 	{
-		// try
-		// { 
-		// 	val output = new File(outputFileName); 
-		// 	val p = output.printer(); 
-		// 
-		// 	for (line in input.lines())
-		// 	{ 
-		// 		p.println(line); 
-		// 	} 
-		// 
-		// 	p.flush(); 
-		// } 
-		// catch (IOException) 
-		// {
-		// 
-		// }
+		try
+		{ 
+			// # mass px py vx vy radius
+			
+			val output = new File(outputFileName); 
+			val p = output.printer(); 
+		
+			val pos:VectorXs = scene.getX();
+			val vel:VectorXs = scene.getV();
+			val mass:VectorXs = scene.getM();
+			val num_particles = scene.getNumParticles();
+			var line:String;
+		
+			for ([i] in 0..(num_particles-1))
+			{ 
+				line = "" + i + " " + mass(i) + " " + pos(i) + " " + pos(i+1) + " " + vel(i) + " " + vel(i+1) + " " + scene.getRadius(i);
+				
+				p.println(line); 
+			} 
+		
+			p.flush(); 
+		} 
+		catch (IOException) 
+		{
+			x10.io.Console.OUT.println("An IO Exception occurred.");
+		}
 	}
 	
 
