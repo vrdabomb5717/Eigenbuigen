@@ -57,7 +57,7 @@ public class VectorXs extends Matrix
 	// place values from other vector into this vector starting from position pos
 	public operator this( pos:int )=( other:VectorXs ):void
 	{
-		assert pos + other.size() < size() :
+		assert pos + other.size() <= size() :
 			"Trying to place values into a vector past its max size: " + 
 			"num elements: " (pos+other.size()) +
 			"from: " + pos +
