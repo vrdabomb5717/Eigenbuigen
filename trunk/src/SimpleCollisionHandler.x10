@@ -82,5 +82,7 @@ public class SimpleCollisionHandler extends CollisionHandler
 		v(2*idx1) = v.segment(2*idx1) + nhat * numerator / denom1 ;
 		
 		v(2*idx2) = v.segment(2*idx2) - nhat * numerator / denom2 ;
+		
+		scene.setV( v ) ;
 	}
 }

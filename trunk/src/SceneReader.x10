@@ -54,9 +54,9 @@ public class SceneReader
 				vel(0) = vx;
 				vel(1) = vy;
 				
-				scene.setPosition(counter, pos);
-				scene.setVelocity(counter, vel);
-				scene.setMass(counter, mass);
+				scene.setX(counter, pos);
+				scene.setV(counter, vel);
+				scene.setM(counter, mass);
 				scene.setRadius(counter, radius);
 				
 				counter++;	

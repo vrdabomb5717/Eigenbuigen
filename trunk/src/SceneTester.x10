@@ -7,7 +7,7 @@ public class SceneTester
 			x10.io.Console.OUT.println("Usage: SceneTester <inputFileName:String> <outputFileName:String> <num_particles:Int> <dt:Double> <duration:Double> <k:Double> <thickness:Double> <COR:Double>.");
 			return;
 		}
-
+		
 		val inputFileName = args(0);
 		val outputFileName = args(1);
 		val num_particles = Int.parse(args(2));

@@ -21,15 +21,15 @@ public class SemiImplicitEuler
 
 		// Step velocities forward based on start-of-step forces
 		F /= m;
-		v += (dt*F) as VectorXs;
+		v += dt*F ;
 
-		scene.setVelocity(v);
+		scene.setV(v);
 
 		Console.OUT.println( "old position: " + x(0) + ":" + x(1) ) ;
 		
 		// Step positions forward based on new velocities
 		x += dt*v;
-		scene.setPosition(x);
+		scene.setX(x);
 		
 		Console.OUT.println( "new position: " + x(0) + ":" + x(1) ) ;
 		

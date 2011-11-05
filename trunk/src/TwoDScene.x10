@@ -44,7 +44,7 @@ public class TwoDScene
 		return m_radii;
 	}
 
-	public def setPosition( particle:Int, pos:Vector2s )
+	public def setX( particle:Int, pos:Vector2s )
 	{
 		assert( particle >= 0 );
 		assert( particle < getNumParticles() );
@@ -52,12 +52,12 @@ public class TwoDScene
 		m_x(2*particle) = pos;
 	}
 	
-	public def setPosition(pos:VectorXs)
+	public def setX(pos:VectorXs)
 	{
 		m_x = pos;
 	}
 
-	public def setVelocity( particle:Int, vel:Vector2s )
+	public def setV( particle:Int, vel:Vector2s )
 	{
 		assert( particle >= 0 );
 		assert( particle < getNumParticles() );
@@ -65,12 +65,12 @@ public class TwoDScene
 		m_v(2*particle) = vel;
 	}
 	
-	public def setVelocity(vel:VectorXs)
+	public def setV(vel:VectorXs)
 	{
 		m_v = vel;
 	}
 
-	public def setMass( particle:Int, mass:scalar )
+	public def setM( particle:Int, mass:scalar )
 	{
 		assert( particle >= 0 );
 		assert( particle < getNumParticles() );
