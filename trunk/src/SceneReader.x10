@@ -55,7 +55,9 @@ public class SceneReader
 				scene.setPosition(counter, pos);
 				scene.setVelocity(counter, vel);
 				scene.setMass(counter, mass);
-				scene.setRadius(counter, radius);	
+				scene.setRadius(counter, radius);
+				
+				counter++;	
 			} 	
 		} 
 		catch (ioe:IOException) 
