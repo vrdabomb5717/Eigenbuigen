@@ -144,7 +144,7 @@ public class TwoDScene
 				m_forces(i).addGradEToTotal( m_x, m_v, m_m, F );
 		}
 		else
-		{              
+		{
 			for( var i:Int = 0; i < m_forces.size(); ++i ) 
 				m_forces(i).addGradEToTotal( m_x+dx, m_v+dv, m_m, F );
 		}

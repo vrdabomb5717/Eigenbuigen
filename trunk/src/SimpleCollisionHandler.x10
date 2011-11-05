@@ -57,27 +57,24 @@ public class SimpleCollisionHandler extends CollisionHandler
 		val M = scene.getM();
 	    val v = scene.getV();
 
-		// your implementation here
+	    val nhat = n / n.norm();
+	    
+	    val cfactor:double = ( 1.0d + getCOR() ) / 2.0d ;
+	    val m1 = M(2*idx1);
+	    val m2 = M(2*idx2); 
 
-		val v1 = scene.getV().segment(2*idx1);
-		val v2 = scene.getV().segment(2*idx2);
-		val m1 = M[2*idx1];
-		val m2 = M[2*idx2];
-
-		// if(scene.isFixed(idx1))
-		// 	m1 = std::numeric_limits<double>::infinity();
-		// 
-		// if(scene.isFixed(idx2))
-		// 	m2 = std::numeric_limits<double>::infinity();
-
-		val cor = (1.0 + getCOR()) / 2.0;
-
-		val nhat = n / n.norm();
-
+	    val v1 = scene.getV().segment(2*idx1);
+	    val v2 = scene.getV().segment(2*idx2);
+	    
+	    val numerator = 2d * cfactor * ( v2 - v1 ).dot( nhat ) ;
+	    val denom1 = 1d + m1/m2 ;
+	    val denom2 = m2/m1 + 1d ;
+	    
+		
 		if(!scene.isFixed(idx1))
-			v.segment(2*idx1) += ((2 * cor * (v2 - v1).dot(nhat))/(1 + (m1/m2))) * nhat;
-
+			v(2*idx1) = v.segment(2*idx1) + nhat * numerator / denom1 ;
+		
 		if(!scene.isFixed(idx2))
-			v.segment(2*idx2) -= ((2 * cor * (v2 - v1).dot(nhat))/(1 + (m2/m1))) * nhat;
+			v(2*idx2) = v.segment(2*idx2) - nhat * numerator / denom2 ;
 	}
 }

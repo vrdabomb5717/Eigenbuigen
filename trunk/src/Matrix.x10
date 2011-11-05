@@ -81,6 +81,8 @@ public class Matrix
 		return result ;
 	}
 	
+	public operator ( other:double )*this:Matrix = this*other ;
+	
 	public operator this/( other:double ):Matrix = this*(1/other) ;
 		
 	public operator this+( other:Matrix ):Matrix

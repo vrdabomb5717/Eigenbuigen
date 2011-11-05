@@ -12,40 +12,27 @@ public class VectorXs extends Matrix
 		this() = other as Matrix ;
 	}
 	
-	public operator this*( other:VectorXs ):VectorXs
-	{
-		return ( this as Matrix * other as Matrix ) as VectorXs  ;
-	}
-	
-	public operator this*( other:double ):VectorXs
-	{
-		return ( this as Matrix * other ) as VectorXs ;
-	}
-	
+	// a bunch of operators that call on the matrix operators
+	public operator this*( other:VectorXs ):VectorXs = ( this as Matrix * other as Matrix ) as VectorXs ;
+	public operator this+( other:VectorXs ):VectorXs = ( this as Matrix * other as Matrix ) as VectorXs ;
+	public operator this-( other:VectorXs ):VectorXs = ( this as Matrix - other as Matrix ) as VectorXs ;
+	public operator this*( other:double ):VectorXs = ( this as Matrix * other ) as VectorXs ;
+	public operator ( other:double )*this:VectorXs = this*other ;
 	public operator this/( other:double ):VectorXs = this*(1/other) ;
 	
-	public operator this+( other:VectorXs ):VectorXs
-	{
-		return ( this as Matrix * other as Matrix ) as VectorXs ;
-	}
-	
-	public operator this-( other:VectorXs ):VectorXs
-	{
-		return ( this as Matrix - other as Matrix ) as VectorXs ;
-	}
-	
+	// assign d to position x in the vector
 	public operator this( x:Int )=( d:double ):void
 	{
 		this(x,0) = d ;
 	}
 	
+	// return the value from position x 
 	public operator this( x:Int ):double = this(x,0) ;
 	
-	public def size():int
-	{
-		return this.num_rows() ;
-	}
+	// return size of vector
+	public def size():int = this.num_rows() ;
 	
+	// place values from other vector into this vector starting from position pos
 	public operator this( pos:int )=( other:VectorXs ):void
 	{
 		if( pos + other.size() < size() )
@@ -58,6 +45,7 @@ public class VectorXs extends Matrix
 			this(pos+i) = other(i) ;
 	}
 	
+	// divide each i in vector this by vector other, and return a new vector with those divisions
 	public operator this/( other:VectorXs ):VectorXs
 	{
 		val result:VectorXs = new VectorXs( size() ) ;
@@ -67,6 +55,7 @@ public class VectorXs extends Matrix
 		
 		return result ;
 	}
+	
 	
 	public def norm():double
 	{
@@ -79,6 +68,7 @@ public class VectorXs extends Matrix
 		return Math.sqrt( sum ) ;
 	}
 	
+	// return a segment starting at pos of size n
 	public def segment( pos:int, n:int ):VectorXs
 	{
 		val result:VectorXs = new VectorXs( n ) ;
@@ -89,11 +79,13 @@ public class VectorXs extends Matrix
 		return result ;
 	}
 	
+	// return a segment starting at pos of size 2
 	public def segment( pos:int ):VectorXs
 	{
 		return segment( pos, 2 ) ;
 	}
 	
+	// return dot product
 	public def dot( other:VectorXs ):double
 	{
 		var sum:double = 0d ;

@@ -58,8 +58,8 @@ public class PenaltyForce extends Force
 		
 		if( n.norm() < r1 + r2 + m_thickness )
 		{
-			gradE(2*idx1) = ( gradE.segment(2*idx1) - m_k * (n.norm() - r1 - r2 - m_thickness ) * nhat ) as VectorXs ;
-			gradE(2*idx2) = ( gradE.segment(2*idx2) + m_k * (n.norm() - r1 - r2 - m_thickness ) * nhat ) as VectorXs ;
+			gradE(2*idx1) = ( gradE.segment(2*idx1) - m_k * (n.norm() - r1 - r2 - m_thickness ) * nhat ) ;
+			gradE(2*idx2) = ( gradE.segment(2*idx2) + m_k * (n.norm() - r1 - r2 - m_thickness ) * nhat ) ;
 		}
 	}
 }
