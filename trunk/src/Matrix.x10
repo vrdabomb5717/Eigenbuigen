@@ -119,5 +119,19 @@ public class Matrix
 	
 	public def num_columns():int = columns ;
 	
+	public def setZero():void
+	{
+		for( [i,j] in (0..(rows-1))*(0..(columns-1)) )
+			matrix(i,j) = 0d ;
+	}
 	
+	public def transpose():Matrix
+	{
+		val result:Matrix = new Matrix( columns, rows, 0d) ;
+		
+		for( [i,j] in (0..(rows-1))*(0..(columns-1)) )
+			result(i,j) = matrix(j,i) ;
+		
+		return result ;
+	}
 }
