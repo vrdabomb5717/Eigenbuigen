@@ -1,4 +1,5 @@
 import x10.util.ArrayList;
+import MathDefs.*;
 
 public abstract class CollisionHandler 
 {
