@@ -15,24 +15,23 @@ public class SimpleCollisionHandler extends CollisionHandler
 	public def handleCollisions(scene:TwoDScene, oldpos:VectorXs, oldvel:VectorXs, dt:scalar)
 	{
 		Console.OUT.println( "in handle collisions" ) ;
-		n:VectorXs = new VectorXs(2);
+		var n:VectorXs = new VectorXs(2);
 		val num_particles = scene.getNumParticles();
 
 		for( [i] in 0..(num_particles-1) )
 		{
 			for( [j] in (i + 1)..(num_particles-1) )
 			{
-				if(detectParticleParticle(scene,i,j,n))
+				if((n = detectParticleParticle(scene,i,j,n)) != null )
 				{
 					addParticleParticleImpulse(i,j,n, 0);
 					respondParticleParticle(scene,i,j,n);
 				}
 			}
 		}
-
 	}
 	
-	private def detectParticleParticle(scene:TwoDScene, idx1:Int, idx2:Int, var n:VectorXs):Boolean
+	private def detectParticleParticle(scene:TwoDScene, idx1:Int, idx2:Int, var n:VectorXs):VectorXs
 	{
 		Console.OUT.println( "in particle collision detected" ) ;
 		
@@ -53,11 +52,11 @@ public class SimpleCollisionHandler extends CollisionHandler
 			if ( (v1 - v2).dot(n) > 0)
 			{
 				Console.OUT.println( "found particle collision" ) ;
-				return true;
+				return n ;
 			}
 		}
 		
-		return false;
+		return null ;
 	}
 	
 	private def respondParticleParticle(scene:TwoDScene, idx1:Int, idx2:Int, n:VectorXs)
@@ -66,6 +65,8 @@ public class SimpleCollisionHandler extends CollisionHandler
 	    val v = scene.getV();
 
 	    val nhat = n / n.norm();
+	    
+	    Console.OUT.println( "n: " + n.toString() + ":" + n.norm() ) ; 
 	    
 	    val cfactor:double = ( 1.0d + getCOR() ) / 2.0d ;
 	    val m1 = M(2*idx1);
