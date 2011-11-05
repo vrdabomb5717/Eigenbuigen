@@ -26,6 +26,17 @@ public class Matrix
 		columns = 1 ;
 	}
 	
+	public def this( other:Matrix )
+	{
+		Console.OUT.println( other.num_rows() + ":" + other.num_columns() ) ; 
+		matrix = new Array[double]((0..(other.num_rows()-1))*(0..(other.num_columns()-1)), 0d ) ;
+		rows = other.num_rows() ;
+		columns = other.num_columns() ;
+		
+		for( [i,j] in (0..(rows-1))*(0..(columns-1)) )
+			matrix(i,j) = other(i,j) ;
+	}
+	
 	public operator this(x:Int, y:Int):double = matrix(x,y) ;
 	
 	public operator this()=( other:Matrix ):void
@@ -50,11 +61,7 @@ public class Matrix
 	
 	public operator this*( other:Matrix ):Matrix
 	{
-		if( columns != other.num_rows() )
-		{
-			Console.OUT.println( "Columns are not equal to rows:" + columns + ":" + other.num_rows() ) ;
-			return null ;
-		}
+		assert columns != other.num_rows() : "Columns are not equal to rows:" + columns + ":" + other.num_rows();
 		
 		val result = new Matrix( rows, other.num_columns(), 0d) ;
 		
@@ -87,11 +94,7 @@ public class Matrix
 		
 	public operator this+( other:Matrix ):Matrix
 	{
-		if( rows != other.num_rows() || columns != other.num_columns() )
-		{
-			Console.OUT.println( "Matricies most be of same size for addition" ) ;
-			return null ;
-		}
+		assert rows != other.num_rows() || columns != other.num_columns() : "Matricies most be of same size for addition" ;
 		
 		val result:Matrix = new Matrix( rows, columns, 0d) ;
 		
@@ -103,11 +106,7 @@ public class Matrix
 	
 	public operator this-( other:Matrix )
 	{
-		if( rows != other.num_rows() || columns != other.num_columns() )
-		{
-			Console.OUT.println( "Matricies most be of same size for substraction" ) ;
-			return null ;
-		}
+		assert rows != other.num_rows() || columns != other.num_columns() : "Matricies most be of same size for substraction" ;
 		
 		val result:Matrix = new Matrix( rows, columns, 0d) ;
 		
@@ -140,7 +139,7 @@ public class Matrix
 	{
 		val result:Matrix = new Matrix( columns, rows, 0d) ;
 		
-		for( [i,j] in (0..(rows-1))*(0..(columns-1)) )
+		for( [i,j] in (0..(columns-1))*(0..(rows-1)) )
 			result(i,j) = matrix(j,i) ;
 		
 		return result ;

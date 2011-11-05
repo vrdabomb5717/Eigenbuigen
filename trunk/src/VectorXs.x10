@@ -7,23 +7,45 @@ public class VectorXs extends Matrix
 		super( rows ) ;
 	}
 	
+	public def this( matrix:Matrix )
+	{
+		super( matrix ) ;
+		assert( matrix.num_columns() == 1 ) ;
+	}
+	
 	public operator this()=( other:VectorXs ):void
 	{
-		this() = other as Matrix ;
+		for( [i] in 0..(other.size()-1) )
+			this(i) = other(i) ;
 	}
 	
 	// a bunch of operators that call on the matrix operators
-	public operator this*( other:VectorXs ):VectorXs = ( this as Matrix * other as Matrix ) as VectorXs ;
-	public operator this+( other:VectorXs ):VectorXs = ( this as Matrix * other as Matrix ) as VectorXs ;
-	public operator this-( other:VectorXs ):VectorXs = ( this as Matrix - other as Matrix ) as VectorXs ;
-	public operator this*( other:double ):VectorXs = ( this as Matrix * other ) as VectorXs ;
-	public operator ( other:double )*this:VectorXs = this*other ;
+	public operator this*( other:VectorXs ):VectorXs = new VectorXs( this as Matrix * other as Matrix ) ;
+	public operator this+( other:VectorXs ):VectorXs = new VectorXs( this as Matrix + other as Matrix ) ;
+	public operator this-( other:VectorXs ):VectorXs = new VectorXs( this as Matrix - other as Matrix ) ;
 	public operator this/( other:double ):VectorXs = this*(1/other) ;
+	
+	public operator this*( other:double ):VectorXs// = new VectorXs( this as Matrix * other ) ;
+	{
+		val result = new VectorXs( size() ) ;
+		for( [i] in 0..(size()-1) )
+			result(i) = this(i)*other ;
+		return result ;
+	}
+	public operator ( other:double )*this:VectorXs = this*other ;
+	
+	public static operator (other:Matrix) as ? = new VectorXs( other ) ;
 	
 	// assign d to position x in the vector
 	public operator this( x:Int )=( d:double ):void
 	{
 		this(x,0) = d ;
+	}
+	
+	public operator this<<( arg:Array[double] ):void
+	{
+		for( [i] in 0..(size()-1) )
+			this(i) = arg(i) ;
 	}
 	
 	// return the value from position x 
@@ -35,9 +57,9 @@ public class VectorXs extends Matrix
 	// place values from other vector into this vector starting from position pos
 	public operator this( pos:int )=( other:VectorXs ):void
 	{
-		if( pos + other.size() < size() )
+		if( pos + other.size() > size() )
 		{
-			Console.OUT.println( "Trying to place values into a vector past its max size." ) ;
+			Console.OUT.println( "Trying to place values into a vector past its max size: " + (pos+other.size()) ) ;
 			return ;
 		}
 		
@@ -73,7 +95,7 @@ public class VectorXs extends Matrix
 	{
 		val result:VectorXs = new VectorXs( n ) ;
 		
-		for( [i] in 0..(size()-1) )
+		for( [i] in 0..(n-1) )
 			result(i) = this(pos+i) ;
 		
 		return result ;
@@ -96,9 +118,8 @@ public class VectorXs extends Matrix
 		return sum ;
 	}
 	
-	public operator this<<( arg:Array[double] ):void
+	public def transpose():VectorXs
 	{
-		for( [i] in 0..(size()-1) )
-			this(i) = arg(i) ;
+		return new VectorXs( super.transpose() ) ;
 	}
 }

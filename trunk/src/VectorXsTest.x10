@@ -80,14 +80,14 @@ public class VectorXsTest
 		}
 		
 		// test multiplication operator with VectorXs
-		val h = b * a;
+		/*val h = b * a;
 		for([i] in 0..4)
 		{
 			assert(h(i) == ((b(i)*1.0) / a(i)));
-		}
+		}*/
 		
 		// test multiplication operator with constants
-		val j = constant * a;
+		val j:VectorXs = constant * a;
 		val k = a * constant;
 		for([i] in 0..4)
 		{
