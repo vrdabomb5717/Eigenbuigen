@@ -1,6 +1,6 @@
 public abstract class CollisionHandler 
 {
-	struct CollisionInfo
+	static struct CollisionInfo
 	{
 		def this(idx1:Int, idx2:Int, n:VectorXs, time:Double)
 		{
@@ -11,15 +11,15 @@ public abstract class CollisionHandler
 		
 		private m_idx1:Int;
 		private m_idx2:Int;
-		private n:VectorXs;
+		private m_n:VectorXs;
 	}
 	
-	public this(COR:Double)
+	public def this(COR:Double)
 	{
 		m_COR = COR;
 	}
 	
-	public abstract handleCollisions(oldpos:VectorXs, oldvel:VectorXs, dt:scalar);
+	public abstract handleCollisions(oldpos:VectorXs, oldvel:VectorXs, dt:scalar):void;
 	
 	public def getCOR():Double
 	{
@@ -28,7 +28,7 @@ public abstract class CollisionHandler
 	
 	public abstract getName():String;
 	
-	protected def addParticleParticleImpulse(idx:Int idx:Int, n:VectorXs, time:Double)
+	protected def addParticleParticleImpulse(idx1:Int, idx2:Int, n:VectorXs, time:Double)
 	{
 		
 	}
