@@ -1,6 +1,37 @@
-import x10.matrix.* ;
-
-public class CollisionHandler 
+public abstract class CollisionHandler 
 {
+	struct CollisionInfo
+	{
+		def this(idx1:Int, idx2:Int, n:VectorXs, time:Double)
+		{
+			m_idx1 = idx1;
+			m_idx2 = idx2;
+			m_n = n;
+		}
+		
+		private m_idx1:Int;
+		private m_idx2:Int;
+		private n:VectorXs;
+	}
 	
+	public this(COR:Double)
+	{
+		m_COR = COR;
+	}
+	
+	public abstract handleCollisions(oldpos:VectorXs, oldvel:VectorXs, dt:scalar);
+	
+	public def getCOR():Double
+	{
+		return m_COR;
+	}
+	
+	public abstract getName():String;
+	
+	protected def addParticleParticleImpulse(idx:Int idx:Int, n:VectorXs, time:Double)
+	{
+		
+	}
+	
+	private m_COR:Double;
 }
