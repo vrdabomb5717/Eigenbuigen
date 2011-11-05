@@ -1,4 +1,4 @@
-public class Vector2s extends Matrix
+public class Vector2s extends VectorXs
 {
 	public def this()
 	{

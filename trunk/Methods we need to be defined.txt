@@ -6,7 +6,7 @@ VectorXs:
 	- operator - DONE
 	/ operator for VectorXs / scalar - DONE
 	size():scalar or int - DONE
-	norm():scalar
+	norm():scalar - DONE
 	segment(index:Int):VectorXs (e.g. val x1 = x.segment(2*idx1) )
 	+= operator - DONE
 	mutator for segment (e.g. gradE.segment(2*idx2) += force.segment(2);)
