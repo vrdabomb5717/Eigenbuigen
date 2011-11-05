@@ -2,11 +2,11 @@ import MathDefs.*;
 
 public class SemiImplicitEuler 
 {
-	public stepScene(dt:scalar):boolean
+	public def stepScene( scene:TwoDScene, dt:scalar):boolean
 	{
 		var x:VectorXs = scene.getX();
 		var v:VectorXs = scene.getV();
-		val m = scene.getM();
+		val m:VectorXs = scene.getM();
 
 		// Compute forces using start-of-step state
 		var F:VectorXs = new VectorXs(x.size());
@@ -21,7 +21,7 @@ public class SemiImplicitEuler
 
 		// Step velocities forward based on start-of-step forces
 		F /= m;
-		v += dt*F;
+		v += (dt*F) as VectorXs;
 
 		// Step positions forward based on new velocities
 		x += dt*v;

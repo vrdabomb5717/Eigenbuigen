@@ -134,4 +134,9 @@ public class Matrix
 		
 		return result ;
 	}
+	
+	public def array():Array[double]
+	{
+		return matrix ;
+	}
 }

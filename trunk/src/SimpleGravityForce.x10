@@ -6,8 +6,8 @@ public class SimpleGravityForce extends Force
 	
 	public def this(gravity:Vector2s)
 	{
-		assert( (m_gravity.array() == m_gravity.array()).all() );
-		assert( (m_gravity.array() != Double.POSITIVE_INFINITY).all() );
+		// assert( (m_gravity.array() == m_gravity.array()).all() );
+		// assert( (m_gravity.array() != Double.POSITIVE_INFINITY).all() );
 	}
 
 	public def addEnergyToTotal(x:VectorXs, v:VectorXs, m:VectorXs, var E:scalar):void
@@ -29,10 +29,10 @@ public class SimpleGravityForce extends Force
 		assert( x.size() == m.size() );
 		assert( x.size() == gradE.size() );
 		assert( x.size() % 2 == 0 );
-
+		
 		for( var i:Int = 0; i < x.size()/2; ++i )
 		{
-			gradE.segment(2*i) -= m(2*i)*m_gravity;
+			gradE(2*i) = gradE.segment(2*i) - m(2*i)*m_gravity;
 		}
 	}
 	

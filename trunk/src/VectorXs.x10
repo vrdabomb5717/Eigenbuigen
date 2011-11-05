@@ -7,6 +7,33 @@ public class VectorXs extends Matrix
 		super( rows ) ;
 	}
 	
+	public operator this()=( other:VectorXs ):void
+	{
+		this() = other as Matrix ;
+	}
+	
+	public operator this*( other:VectorXs ):VectorXs
+	{
+		return ( this as Matrix * other as Matrix ) as VectorXs  ;
+	}
+	
+	public operator this*( other:double ):VectorXs
+	{
+		return ( this as Matrix * other ) as VectorXs ;
+	}
+	
+	public operator this/( other:double ):VectorXs = this*(1/other) ;
+	
+	public operator this+( other:VectorXs ):VectorXs
+	{
+		return ( this as Matrix * other as Matrix ) as VectorXs ;
+	}
+	
+	public operator this-( other:VectorXs ):VectorXs
+	{
+		return ( this as Matrix - other as Matrix ) as VectorXs ;
+	}
+	
 	public operator this( x:Int )=( d:double ):void
 	{
 		this(x,0) = d ;
@@ -17,6 +44,28 @@ public class VectorXs extends Matrix
 	public def size():int
 	{
 		return this.num_rows() ;
+	}
+	
+	public operator this( pos:int )=( other:VectorXs ):void
+	{
+		if( pos + other.size() < size() )
+		{
+			Console.OUT.println( "Trying to place values into a vector past its max size." ) ;
+			return ;
+		}
+		
+		for( [i] in 0..(other.size()-1) )
+			this(pos+i) = other(i) ;
+	}
+	
+	public operator this/( other:VectorXs ):VectorXs
+	{
+		val result:VectorXs = new VectorXs( size() ) ;
+		
+		for( [i] in 0..(size()-1) )
+			result(i) = this(i) / other(i) ;
+		
+		return result ;
 	}
 	
 	public def norm():double
@@ -43,28 +92,6 @@ public class VectorXs extends Matrix
 	public def segment( pos:int ):VectorXs
 	{
 		return segment( pos, 2 ) ;
-	}
-	
-	public operator this( pos:int )=( other:VectorXs ):void
-	{
-		if( pos + other.size() < size() )
-		{
-			Console.OUT.println( "Trying to place values into a vector past its max size." ) ;
-			return ;
-		}
-		
-		for( [i] in 0..(other.size()-1) )
-			this(pos+i) = other(i) ;
-	}
-	
-	public operator this/( other:VectorXs ):VectorXs
-	{
-		val result:VectorXs = new VectorXs( size() ) ;
-		
-		for( [i] in 0..(size()-1) )
-			result(i) = this(i) / other(i) ;
-		
-		return result ;
 	}
 	
 	public def dot( other:VectorXs ):double
