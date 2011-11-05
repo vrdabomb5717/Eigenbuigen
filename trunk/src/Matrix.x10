@@ -94,7 +94,12 @@ public class Matrix
 		
 	public operator this+( other:Matrix ):Matrix
 	{
-		assert rows != other.num_rows() || columns != other.num_columns() : "Matricies most be of same size for addition" ;
+		assert rows != other.num_rows() || columns != other.num_columns() : 
+			"Matricies most be of same size for addition: " + 
+			"this rows: " + rows +
+			"this columns: " + columns +
+			"other rows: " + other.num_rows() +
+			"other columns: " + other.num_columns() ;
 		
 		val result:Matrix = new Matrix( rows, columns, 0d) ;
 		
@@ -106,7 +111,12 @@ public class Matrix
 	
 	public operator this-( other:Matrix )
 	{
-		assert rows != other.num_rows() || columns != other.num_columns() : "Matricies most be of same size for substraction" ;
+		assert rows != other.num_rows() || columns != other.num_columns() :
+			"Matricies most be of same size for addition: " + 
+			"this rows: " + rows +
+			"this columns: " + columns +
+            "other rows: " + other.num_rows() +
+            "other columns: " + other.num_columns() ;
 		
 		val result:Matrix = new Matrix( rows, columns, 0d) ;
 		
