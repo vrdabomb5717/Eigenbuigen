@@ -1,3 +1,5 @@
+import MathDefs.*;
+
 public class PenaltyForce extends Force
 {
 	private var m_k:scalar;
@@ -11,7 +13,7 @@ public class PenaltyForce extends Force
 		m_thickness = thickness;
 	}
 
-	public def addEnergyToTotal(x:VectorXs, v:VectorXs, m:VectorXs, E:scalar)
+	public def addEnergyToTotal(x:VectorXs, v:VectorXs, m:VectorXs, E:scalar):void
 	{
 		// Feel free to implement if you feel like it.
 	}
@@ -45,27 +47,19 @@ public class PenaltyForce extends Force
 	//          gradient to this total gradient.
 	public def addParticleParticleGradEToTotal(x:VectorXs, idx1:Int, idx2:Int, var gradE:VectorXs)
 	{
-	    val x1 = x.segment(2*idx1);
-	    val x2 = x.segment(2*idx2);
+	    val x1:VectorXs = x.segment(2*idx1);
+	    val x2:VectorXs = x.segment(2*idx2);
 
 	    val r1 = m_scene.getRadius(idx1);
 	    val r2 = m_scene.getRadius(idx2);
 
-		val n = x2 - x1;
-		val nhat = n / n.norm();
-
-		val tmp = n.norm() - r1 - r2 - m_thickness;
-
-		if(tmp > 0)
-			return;
-
-		var deltaN:MatrixXs = new MatrixXs(2,4);
-		deltaN << (-1, 0, 1, 0, 
-					0, -1, 0, 1);
-
-		val force = m_k * tmp * deltaN.transpose() * nhat;
-
-		gradE.segment(2*idx1) += force.segment(0);
-		gradE.segment(2*idx2) += force.segment(2);
+		val n:VectorXs = (x2 - x1) as VectorXs ;
+		val nhat:VectorXs = ( n / n.norm() ) as VectorXs ;
+		
+		if( n.norm() < r1 + r2 + m_thickness )
+		{
+			gradE(2*idx1) = ( gradE.segment(2*idx1) - m_k * (n.norm() - r1 - r2 - m_thickness ) * nhat ) as VectorXs ;
+			gradE(2*idx2) = ( gradE.segment(2*idx2) + m_k * (n.norm() - r1 - r2 - m_thickness ) * nhat ) as VectorXs ;
+		}
 	}
 }
