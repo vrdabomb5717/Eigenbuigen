@@ -6,10 +6,10 @@ public class VectorXsTest
 	{
 		var a:VectorXs = new VectorXs(5);
 		var b:VectorXs = new VectorXs(5);
-		val constant = 10;
+		val constant = 10d;
 		
-		val ints = [1,2,3,4,5];
-		val moreInts = [6,7,8,9,10];
+		val ints = [1d,2d,3d,4d,5d];
+		val moreInts = [6d,7d,8d,9d,10d];
 		
 		testSetZero(a);
 		
@@ -70,20 +70,20 @@ public class VectorXsTest
 		
 		// test dot product
 		val f = (b-a).dot(b-a);
-		assert(f == 25);
+		assert(f == 25d);
 		
 		// test division operator
 		val g = b / a;
 		for([i] in 0..4)
 		{
-			assert(g(i) == ((b*1.0) / a));
+			assert(g(i) == ((b(i)*1.0) / a(i)));
 		}
 		
 		// test multiplication operator with VectorXs
 		val h = b * a;
 		for([i] in 0..4)
 		{
-			assert(h(i) == ((b*1.0) / a));
+			assert(h(i) == ((b(i)*1.0) / a(i)));
 		}
 		
 		// test multiplication operator with constants
@@ -116,7 +116,7 @@ public class VectorXsTest
 		
 		for([i] in 0..4)
 		{
-			assert(a(i) == 0);
+			assert(a(i) == 0d);
 		}
 	}
 
