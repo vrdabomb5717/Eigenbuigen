@@ -79,10 +79,8 @@ public class SimpleCollisionHandler extends CollisionHandler
 	    val denom2 = m2/m1 + 1d ;
 	    
 		
-		if(!scene.isFixed(idx1))
-			v(2*idx1) = v.segment(2*idx1) + nhat * numerator / denom1 ;
+		v(2*idx1) = v.segment(2*idx1) + nhat * numerator / denom1 ;
 		
-		if(!scene.isFixed(idx2))
-			v(2*idx2) = v.segment(2*idx2) - nhat * numerator / denom2 ;
+		v(2*idx2) = v.segment(2*idx2) - nhat * numerator / denom2 ;
 	}
 }

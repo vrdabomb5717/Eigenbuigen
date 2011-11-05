@@ -47,6 +47,8 @@ public class SceneReader
 				vy = Double.parse(split(4));
 				radius = Double.parse(split(5));
 				
+				x10.io.Console.OUT.println( "new particle at: " + px + ":" + py + " with v: " + vx + ":" + vy ) ;
+				
 				pos(0) = px;
 				pos(1) = py;
 				vel(0) = vx;
