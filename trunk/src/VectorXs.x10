@@ -15,8 +15,9 @@ public class VectorXs extends Matrix
 	
 	public operator this()=( other:VectorXs ):void
 	{
-		for( [i] in 0..(other.size()-1) )
-			this(i) = other(i) ;
+		this() = other as Matrix ;
+		// for( [i] in 0..(other.size()-1) )
+		// 	this(i) = other(i) ;
 	}
 	
 	// a bunch of operators that call on the matrix operators

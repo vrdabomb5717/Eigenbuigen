@@ -1,9 +1,9 @@
 
 public class Matrix
 {
-	private val matrix:Array[double](2) ;
-	private val rows:int ;
-	private val columns:int ;
+	private var matrix:Array[double](2) ;
+	private var rows:int ;
+	private var columns:int ;
 	
 	public def this( m:int, n:int )
 	{
@@ -40,10 +40,14 @@ public class Matrix
 	
 	public operator this()=( other:Matrix ):void
 	{
-		for( [i,j] in (0..(rows-1))*(0..(columns-1)) )
-		{
-			matrix(i,j) = other(i,j) ;
-		}
+		this.matrix = other.array() ;
+		this.rows = other.num_rows() ;
+		this.columns = other.num_columns() ;
+		
+		// for( [i,j] in (0..(rows-1))*(0..(columns-1)) )
+		// {
+		// 	matrix(i,j) = other(i,j) ;
+		// }
 	}
 	
 	public operator this( x:Int, y:Int )=( d:double ):void

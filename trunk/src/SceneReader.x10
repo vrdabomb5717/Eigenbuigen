@@ -12,7 +12,7 @@ public class SceneReader
 	public def read(inputFileName:String)
 	{
 		try
-		{ 
+		{
 			val input = new File(inputFileName); 
 			var split:Array[String];
 			var counter:Int = 0;
@@ -67,7 +67,7 @@ public class SceneReader
 	}
 	
 	public def animate(dt:scalar, duration:scalar, k:scalar, thickness:scalar, cor:scalar)
-	{	
+	{
 		scene.insertForce(new PenaltyForce(scene, k, thickness));
 		
 		var oldpos:VectorXs;
