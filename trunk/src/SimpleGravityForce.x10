@@ -1,14 +1,16 @@
+import MathDefs.*;
+
 public class SimpleGravityForce extends Force
 {
 	private var m_gravity:Vector2s;
 	
-	public this(gravity:Vector2s)
+	public def this(gravity:Vector2s)
 	{
 		assert( (m_gravity.array() == m_gravity.array()).all() );
 		assert( (m_gravity.array() != Double.POSITIVE_INFINITY).all() );
 	}
 
-	public addEnergyToTotal(x:VectorXs, v:VectorXs, m:VectorXs, E:scalar):void
+	public def addEnergyToTotal(x:VectorXs, v:VectorXs, m:VectorXs, var E:scalar):void
 	{
 		assert( x.size() == v.size() );
 		assert( x.size() == m.size() );
@@ -21,7 +23,7 @@ public class SimpleGravityForce extends Force
 		}
 	}
 	
-	public addGradEToTotal(x:VectorXs, v:VectorXs, m:VectorXs, gradE:VectorXs):void
+	public def addGradEToTotal(x:VectorXs, v:VectorXs, m:VectorXs, gradE:VectorXs):void
 	{
 		assert( x.size() == v.size() );
 		assert( x.size() == m.size() );
