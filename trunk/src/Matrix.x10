@@ -115,6 +115,15 @@ public class Matrix
 		return result ;
 	}
 	
+	public operator this->( other:Matrix ):boolean
+	{
+		for( [i,j] in (0..(rows-1))*(0..(columns-1)) )
+			if( this(i,j) != other(i,j) )
+				return false ;
+		
+		return true ;
+	}
+	
 	public def num_rows():int = rows ;
 	
 	public def num_columns():int = columns ;
