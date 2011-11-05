@@ -78,10 +78,13 @@ public class SimpleCollisionHandler extends CollisionHandler
 	    val denom1 = 1d + m1/m2 ;
 	    val denom2 = m2/m1 + 1d ;
 	    
+	    Console.OUT.println( "nhat: " + nhat + ": numerator: " + numerator + ":denom: " + denom1 + ":" + denom2 ) ;
 		
 		v(2*idx1) = v.segment(2*idx1) + nhat * numerator / denom1 ;
 		
 		v(2*idx2) = v.segment(2*idx2) - nhat * numerator / denom2 ;
+		
+		Console.OUT.println( "v after updating response: " + v.toString() ) ;
 		
 		scene.setV( v ) ;
 	}

@@ -25,13 +25,13 @@ public class SemiImplicitEuler
 
 		scene.setV(v);
 
-		Console.OUT.println( "old position: " + x(0) + ":" + x(1) ) ;
+		Console.OUT.println( "old position: " + x.toString() ) ;
 		
 		// Step positions forward based on new velocities
 		x += dt*v;
 		scene.setX(x);
 		
-		Console.OUT.println( "new position: " + x(0) + ":" + x(1) ) ;
+		Console.OUT.println( "new position: " + x.toString() ) ;
 		
 		return true;	
 	}
