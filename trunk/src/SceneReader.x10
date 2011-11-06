@@ -1,13 +1,16 @@
 import x10.io.*;
 import MathDefs.*;
+import x10.compiler.Native;
+import x10.compiler.NativeCPPInclude;
+import x10.compiler.NativeCPPCompilationUnit;
 
+@NativeCPPCompilationUnit( "Particle_Simulator.cpp" )
 public class SceneReader
 {
 	public def this(particles:Int)
 	{
 		scene = new TwoDScene(particles);
 	}
-	
 	
 	public def read(inputFileName:String)
 	{
@@ -92,6 +95,9 @@ public class SceneReader
 			scene.checkConsistency();
 			write( output, p, i ) ;
 		}
+		
+		x10.io.Console.OUT.println( "creating animation" ) ;
+		{ @Native("c++","start( outputFileName );") {} }
 	}
 	
 	
@@ -106,25 +112,22 @@ public class SceneReader
 			val num_particles = scene.getNumParticles();
 			var line:String;
 			
-			for ([i] in 0..(num_particles-1))
+			for( [i] in 0..(num_particles-1) )
 			{
 				line = i + " " + dt + " " + pos(i*2) + " " + pos(i*2+1) + " " + scene.getRadius( i/2 ) ;
 				
 				x10.io.Console.OUT.println( "printing to file: " + line ) ;
 				
-				p.println(line); 
-			} 
+				p.println( line ) ;
+			}
 		
-			p.flush(); 
+			p.flush() ; 
 		} 
 		catch (IOException) 
 		{
-			x10.io.Console.OUT.println("An IO Exception occurred.");
+			x10.io.Console.OUT.println( "An IO Exception occurred." ) ;
 		}
 	}
 	
-
-	
-	private var scene:TwoDScene = null;
-	
+	private var scene:TwoDScene = null ;
 }
