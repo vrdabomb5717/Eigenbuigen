@@ -108,7 +108,7 @@ public class SceneReader
 			
 			for ([i] in 0..(num_particles-1))
 			{
-				line = i + " " + dt + " " + pos(i) + " " + pos(i+1) + " " + scene.getRadius( i/2 ) ;
+				line = i + " " + dt + " " + pos(i*2) + " " + pos(i*2+1) + " " + scene.getRadius( i/2 ) ;
 				
 				x10.io.Console.OUT.println( "printing to file: " + line ) ;
 				
