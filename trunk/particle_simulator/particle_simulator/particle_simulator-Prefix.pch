@@ -1,0 +1,7 @@
+//
+// Prefix header for all source files of the 'particle_simulator' target in the 'particle_simulator' project
+//
+
+#ifdef __OBJC__
+    #import <Cocoa/Cocoa.h>
+#endif

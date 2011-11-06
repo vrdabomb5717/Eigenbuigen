@@ -18,11 +18,11 @@ public class SceneTester
 		val cor = Double.parse(args(7));
 		
 		Console.OUT.println( "creating: " + num_particles + ":" + dt + ":" + duration ) ;
-
+		
 		val sr = new SceneReader(num_particles);
 
 		sr.read(inputFileName);
-		sr.animate(dt, duration, k, thickness, cor);
-		sr.write(outputFileName);
+		sr.animate(dt, duration, k, thickness, cor, outputFileName);
+		// sr.write(outputFileName);
 	}
 }

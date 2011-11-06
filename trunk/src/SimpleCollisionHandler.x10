@@ -14,7 +14,6 @@ public class SimpleCollisionHandler extends CollisionHandler
 	
 	public def handleCollisions(scene:TwoDScene, oldpos:VectorXs, oldvel:VectorXs, dt:scalar)
 	{
-		Console.OUT.println( "in handle collisions" ) ;
 		var n:VectorXs = new VectorXs(2);
 		val num_particles = scene.getNumParticles();
 
@@ -33,13 +32,9 @@ public class SimpleCollisionHandler extends CollisionHandler
 	
 	private def detectParticleParticle(scene:TwoDScene, idx1:Int, idx2:Int, var n:VectorXs):VectorXs
 	{
-		Console.OUT.println( "in particle collision detected" ) ;
-		
 		val x1 = scene.getX().segment(2*idx1);
 		val x2 = scene.getX().segment(2*idx2);
-		
-		Console.OUT.println( "desting for collision between: " + x1(0) + ":" + x1(1) + " and " + x2(0) + ":" + x2(1) ) ;
-		
+				
 		n = x2 - x1;
 		l:scalar = n.norm();
 		assert(l != 0.0);
@@ -51,7 +46,6 @@ public class SimpleCollisionHandler extends CollisionHandler
 		{
 			if ( (v1 - v2).dot(n) > 0)
 			{
-				Console.OUT.println( "found particle collision" ) ;
 				return n ;
 			}
 		}
@@ -65,9 +59,7 @@ public class SimpleCollisionHandler extends CollisionHandler
 	    val v = scene.getV();
 
 	    val nhat = n / n.norm();
-	    
-	    Console.OUT.println( "n: " + n.toString() + ":" + n.norm() ) ; 
-	    
+	    	    
 	    val cfactor:double = ( 1.0d + getCOR() ) / 2.0d ;
 	    val m1 = M(2*idx1);
 	    val m2 = M(2*idx2); 
@@ -78,15 +70,11 @@ public class SimpleCollisionHandler extends CollisionHandler
 	    val numerator = 2d * cfactor * ( v2 - v1 ).dot( nhat ) ;
 	    val denom1 = 1d + m1/m2 ;
 	    val denom2 = m2/m1 + 1d ;
-	    
-	    Console.OUT.println( "nhat: " + nhat + ": numerator: " + numerator + ":denom: " + denom1 + ":" + denom2 ) ;
-		
+	    		
 		v(2*idx1) = v.segment(2*idx1) + nhat * numerator / denom1 ;
 		
 		v(2*idx2) = v.segment(2*idx2) - nhat * numerator / denom2 ;
-		
-		Console.OUT.println( "v after updating response: " + v.toString() ) ;
-		
+				
 		scene.setV( v ) ;
 	}
 }

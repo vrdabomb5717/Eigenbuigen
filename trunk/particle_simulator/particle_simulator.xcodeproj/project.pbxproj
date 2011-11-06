@@ -1,0 +1,441 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		CC579C9E1465FBBD00B73D54 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC579C9D1465FBBD00B73D54 /* Cocoa.framework */; };
+		CC579CA81465FBBD00B73D54 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = CC579CA61465FBBD00B73D54 /* InfoPlist.strings */; };
+		CC579CAE1465FBBD00B73D54 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = CC579CAC1465FBBD00B73D54 /* Credits.rtf */; };
+		CC579CBC1465FBBE00B73D54 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC579CBB1465FBBE00B73D54 /* SenTestingKit.framework */; };
+		CC579CBD1465FBBE00B73D54 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC579C9D1465FBBD00B73D54 /* Cocoa.framework */; };
+		CC579CC51465FBBE00B73D54 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = CC579CC31465FBBE00B73D54 /* InfoPlist.strings */; };
+		CC579CC81465FBBE00B73D54 /* particle_simulatorTests.m in Sources */ = {isa = PBXBuildFile; fileRef = CC579CC71465FBBE00B73D54 /* particle_simulatorTests.m */; };
+		CC579CD21465FC1A00B73D54 /* GLUT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC579CD11465FC1A00B73D54 /* GLUT.framework */; };
+		CC579CD41465FC2600B73D54 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC579CD31465FC2600B73D54 /* OpenGL.framework */; };
+		CC579CD61465FC9F00B73D54 /* Simulator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CC579CD51465FC9F00B73D54 /* Simulator.cpp */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		CC579CBE1465FBBE00B73D54 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CC579C901465FBBC00B73D54 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CC579C981465FBBD00B73D54;
+			remoteInfo = particle_simulator;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		CC579C991465FBBD00B73D54 /* particle_simulator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = particle_simulator.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		CC579C9D1465FBBD00B73D54 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		CC579CA01465FBBD00B73D54 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
+		CC579CA11465FBBD00B73D54 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		CC579CA21465FBBD00B73D54 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		CC579CA51465FBBD00B73D54 /* particle_simulator-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "particle_simulator-Info.plist"; sourceTree = "<group>"; };
+		CC579CA71465FBBD00B73D54 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		CC579CAB1465FBBD00B73D54 /* particle_simulator-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "particle_simulator-Prefix.pch"; sourceTree = "<group>"; };
+		CC579CAD1465FBBD00B73D54 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
+		CC579CBA1465FBBE00B73D54 /* particle_simulatorTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = particle_simulatorTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		CC579CBB1465FBBE00B73D54 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
+		CC579CC21465FBBE00B73D54 /* particle_simulatorTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "particle_simulatorTests-Info.plist"; sourceTree = "<group>"; };
+		CC579CC41465FBBE00B73D54 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		CC579CC61465FBBE00B73D54 /* particle_simulatorTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = particle_simulatorTests.h; sourceTree = "<group>"; };
+		CC579CC71465FBBE00B73D54 /* particle_simulatorTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = particle_simulatorTests.m; sourceTree = "<group>"; };
+		CC579CD11465FC1A00B73D54 /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = System/Library/Frameworks/GLUT.framework; sourceTree = SDKROOT; };
+		CC579CD31465FC2600B73D54 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
+		CC579CD51465FC9F00B73D54 /* Simulator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Simulator.cpp; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		CC579C961465FBBD00B73D54 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CC579CD41465FC2600B73D54 /* OpenGL.framework in Frameworks */,
+				CC579CD21465FC1A00B73D54 /* GLUT.framework in Frameworks */,
+				CC579C9E1465FBBD00B73D54 /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CC579CB61465FBBE00B73D54 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CC579CBC1465FBBE00B73D54 /* SenTestingKit.framework in Frameworks */,
+				CC579CBD1465FBBE00B73D54 /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		CC579C8E1465FBBC00B73D54 = {
+			isa = PBXGroup;
+			children = (
+				CC579CD31465FC2600B73D54 /* OpenGL.framework */,
+				CC579CD11465FC1A00B73D54 /* GLUT.framework */,
+				CC579CA31465FBBD00B73D54 /* particle_simulator */,
+				CC579CC01465FBBE00B73D54 /* particle_simulatorTests */,
+				CC579C9C1465FBBD00B73D54 /* Frameworks */,
+				CC579C9A1465FBBD00B73D54 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		CC579C9A1465FBBD00B73D54 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				CC579C991465FBBD00B73D54 /* particle_simulator.app */,
+				CC579CBA1465FBBE00B73D54 /* particle_simulatorTests.octest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		CC579C9C1465FBBD00B73D54 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				CC579C9D1465FBBD00B73D54 /* Cocoa.framework */,
+				CC579CBB1465FBBE00B73D54 /* SenTestingKit.framework */,
+				CC579C9F1465FBBD00B73D54 /* Other Frameworks */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		CC579C9F1465FBBD00B73D54 /* Other Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				CC579CA01465FBBD00B73D54 /* AppKit.framework */,
+				CC579CA11465FBBD00B73D54 /* CoreData.framework */,
+				CC579CA21465FBBD00B73D54 /* Foundation.framework */,
+			);
+			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+		CC579CA31465FBBD00B73D54 /* particle_simulator */ = {
+			isa = PBXGroup;
+			children = (
+				CC579CA41465FBBD00B73D54 /* Supporting Files */,
+				CC579CD51465FC9F00B73D54 /* Simulator.cpp */,
+			);
+			path = particle_simulator;
+			sourceTree = "<group>";
+		};
+		CC579CA41465FBBD00B73D54 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				CC579CA51465FBBD00B73D54 /* particle_simulator-Info.plist */,
+				CC579CA61465FBBD00B73D54 /* InfoPlist.strings */,
+				CC579CAB1465FBBD00B73D54 /* particle_simulator-Prefix.pch */,
+				CC579CAC1465FBBD00B73D54 /* Credits.rtf */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		CC579CC01465FBBE00B73D54 /* particle_simulatorTests */ = {
+			isa = PBXGroup;
+			children = (
+				CC579CC61465FBBE00B73D54 /* particle_simulatorTests.h */,
+				CC579CC71465FBBE00B73D54 /* particle_simulatorTests.m */,
+				CC579CC11465FBBE00B73D54 /* Supporting Files */,
+			);
+			path = particle_simulatorTests;
+			sourceTree = "<group>";
+		};
+		CC579CC11465FBBE00B73D54 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				CC579CC21465FBBE00B73D54 /* particle_simulatorTests-Info.plist */,
+				CC579CC31465FBBE00B73D54 /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		CC579C981465FBBD00B73D54 /* particle_simulator */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CC579CCB1465FBBE00B73D54 /* Build configuration list for PBXNativeTarget "particle_simulator" */;
+			buildPhases = (
+				CC579C951465FBBD00B73D54 /* Sources */,
+				CC579C961465FBBD00B73D54 /* Frameworks */,
+				CC579C971465FBBD00B73D54 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = particle_simulator;
+			productName = particle_simulator;
+			productReference = CC579C991465FBBD00B73D54 /* particle_simulator.app */;
+			productType = "com.apple.product-type.application";
+		};
+		CC579CB91465FBBE00B73D54 /* particle_simulatorTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CC579CCE1465FBBE00B73D54 /* Build configuration list for PBXNativeTarget "particle_simulatorTests" */;
+			buildPhases = (
+				CC579CB51465FBBE00B73D54 /* Sources */,
+				CC579CB61465FBBE00B73D54 /* Frameworks */,
+				CC579CB71465FBBE00B73D54 /* Resources */,
+				CC579CB81465FBBE00B73D54 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				CC579CBF1465FBBE00B73D54 /* PBXTargetDependency */,
+			);
+			name = particle_simulatorTests;
+			productName = particle_simulatorTests;
+			productReference = CC579CBA1465FBBE00B73D54 /* particle_simulatorTests.octest */;
+			productType = "com.apple.product-type.bundle";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		CC579C901465FBBC00B73D54 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0420;
+				ORGANIZATIONNAME = "Abstract-coding.com";
+			};
+			buildConfigurationList = CC579C931465FBBC00B73D54 /* Build configuration list for PBXProject "particle_simulator" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = CC579C8E1465FBBC00B73D54;
+			productRefGroup = CC579C9A1465FBBD00B73D54 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				CC579C981465FBBD00B73D54 /* particle_simulator */,
+				CC579CB91465FBBE00B73D54 /* particle_simulatorTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		CC579C971465FBBD00B73D54 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CC579CA81465FBBD00B73D54 /* InfoPlist.strings in Resources */,
+				CC579CAE1465FBBD00B73D54 /* Credits.rtf in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CC579CB71465FBBE00B73D54 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CC579CC51465FBBE00B73D54 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		CC579CB81465FBBE00B73D54 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		CC579C951465FBBD00B73D54 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CC579CD61465FC9F00B73D54 /* Simulator.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CC579CB51465FBBE00B73D54 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CC579CC81465FBBE00B73D54 /* particle_simulatorTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		CC579CBF1465FBBE00B73D54 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CC579C981465FBBD00B73D54 /* particle_simulator */;
+			targetProxy = CC579CBE1465FBBE00B73D54 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		CC579CA61465FBBD00B73D54 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CC579CA71465FBBD00B73D54 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		CC579CAC1465FBBD00B73D54 /* Credits.rtf */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CC579CAD1465FBBD00B73D54 /* en */,
+			);
+			name = Credits.rtf;
+			sourceTree = "<group>";
+		};
+		CC579CC31465FBBE00B73D54 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CC579CC41465FBBE00B73D54 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		CC579CC91465FBBE00B73D54 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		CC579CCA1465FBBE00B73D54 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		CC579CCC1465FBBE00B73D54 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "particle_simulator/particle_simulator-Prefix.pch";
+				INFOPLIST_FILE = "particle_simulator/particle_simulator-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		CC579CCD1465FBBE00B73D54 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "particle_simulator/particle_simulator-Prefix.pch";
+				INFOPLIST_FILE = "particle_simulator/particle_simulator-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		CC579CCF1465FBBE00B73D54 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/particle_simulator.app/Contents/MacOS/particle_simulator";
+				FRAMEWORK_SEARCH_PATHS = "$(DEVELOPER_LIBRARY_DIR)/Frameworks";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "particle_simulator/particle_simulator-Prefix.pch";
+				INFOPLIST_FILE = "particle_simulatorTests/particle_simulatorTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Debug;
+		};
+		CC579CD01465FBBE00B73D54 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/particle_simulator.app/Contents/MacOS/particle_simulator";
+				FRAMEWORK_SEARCH_PATHS = "$(DEVELOPER_LIBRARY_DIR)/Frameworks";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "particle_simulator/particle_simulator-Prefix.pch";
+				INFOPLIST_FILE = "particle_simulatorTests/particle_simulatorTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		CC579C931465FBBC00B73D54 /* Build configuration list for PBXProject "particle_simulator" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CC579CC91465FBBE00B73D54 /* Debug */,
+				CC579CCA1465FBBE00B73D54 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CC579CCB1465FBBE00B73D54 /* Build configuration list for PBXNativeTarget "particle_simulator" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CC579CCC1465FBBE00B73D54 /* Debug */,
+				CC579CCD1465FBBE00B73D54 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		CC579CCE1465FBBE00B73D54 /* Build configuration list for PBXNativeTarget "particle_simulatorTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CC579CCF1465FBBE00B73D54 /* Debug */,
+				CC579CD01465FBBE00B73D54 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = CC579C901465FBBC00B73D54 /* Project object */;
+}

@@ -70,8 +70,11 @@ public class SceneReader
 		}
 	}
 	
-	public def animate(dt:scalar, duration:scalar, k:scalar, thickness:scalar, cor:scalar)
+	public def animate(dt:scalar, duration:scalar, k:scalar, thickness:scalar, cor:scalar, outputFileName:String )
 	{
+		val output = new File(outputFileName);
+		val p = output.printer();
+		
 		scene.insertForce(new PenaltyForce(scene, k, thickness));
 		
 		var oldpos:VectorXs;
@@ -87,28 +90,27 @@ public class SceneReader
 			euler.stepScene(scene, dt);
 			handler.handleCollisions(scene, oldpos, oldvel, dt);
 			scene.checkConsistency();
+			write( output, p, i ) ;
 		}
 	}
 	
 	
-	public def write(outputFileName:String)
+	public def write(output:File, p:Printer, dt:double )
 	{
 		try
 		{ 
 			// # mass px py vx vy radius
-			
-			val output = new File(outputFileName); 
-			val p = output.printer(); 
-		
 			val pos:VectorXs = scene.getX();
 			val vel:VectorXs = scene.getV();
 			val mass:VectorXs = scene.getM();
 			val num_particles = scene.getNumParticles();
 			var line:String;
-		
+			
 			for ([i] in 0..(num_particles-1))
-			{ 
-				line = "Particle " + i + " with mass " + mass(i) + " at px = " + pos(i) + " and py = " + pos(i+1) + " and vx = " + vel(i) + " and vy = " + vel(i+1) + " and radius = " + scene.getRadius(i);
+			{
+				line = i + " " + dt + " " + pos(i) + " " + pos(i+1) + " " + scene.getRadius( i/2 ) ;
+				
+				x10.io.Console.OUT.println( "printing to file: " + line ) ;
 				
 				p.println(line); 
 			} 
