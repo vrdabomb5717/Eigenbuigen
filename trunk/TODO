@@ -1,0 +1,6 @@
+Add these classes:
+
+ContestDetector.x10
+CollisionDetector.x10 (interface)
+
+modify SimpleCollisionHandler.x10 to introduce a callback, handleCollisions
