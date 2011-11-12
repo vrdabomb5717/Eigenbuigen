@@ -2,5 +2,5 @@ import Matrix ;
 
 public class MathDefs
 {
-	static type scalar = double ;
+	static type scalar = double;
 }
