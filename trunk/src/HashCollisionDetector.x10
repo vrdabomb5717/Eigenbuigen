@@ -5,7 +5,14 @@ public class HashCollisionDetector extends CollisionDetector
 
 	static type PPList = HashSet[Pair[Int,Int]];
 
-	public def this(){}
+
+	static struct Cell{Cell haszero}
+	{
+		val verts = new HashSet[Int]();
+	};
+
+	private var numcells:Int = 0;
+	private var hashgrid:Array[Cell] = null;
 	
 	public def performCollisionDetection(scene:TwoDScene, qs:VectorXs, qe:VectorXs, dc:DetectionCallback)
 	{
@@ -23,8 +30,73 @@ public class HashCollisionDetector extends CollisionDetector
 	}
 	
 	private def findCollidingPairs(scene:TwoDScene, x:VectorXs, pppairs:PPList)
-	{
-	
+	{		
+		if(numcells == 0)
+		{
+			numcells = Math.sqrt(scene.getNumParticles()) as Int;
+		}
+		
+		var minx:Double = x(0);
+		var maxx:Double = x(0);
+		var miny:Double = x(1);
+		var maxy:Double = x(1);
+		
+		for(var i:Int =0; i < scene.getNumParticles(); i++)
+		{
+			if(x(2*i) > maxx)
+				maxx = x(2*i);
+				
+			if(x(2*i) < minx)
+				minx = x(2*i);
+
+			if(x(2*i+1) > maxy)
+				maxy = x(2*i+1);
+				
+			if(x(2*i+1) < miny)
+				miny = x(2*i+1);
+		}		
+		
+		if(hashgrid == null)
+			hashgrid = new Array[Cell](numcells*numcells);
+
+		for(var i:Int = 0; i < numcells * numcells; i++)
+		{
+			hashgrid(i).verts.clear();
+		}
+
+
+		for(var i:Int = 0; i < scene.getNumParticles(); i++)
+		{
+			val r = scene.getRadius(i);
+			val px1 = hash(minx, maxx, x(2*i)-r, numcells);
+			val px2 = hash(minx, maxx, x(2*i)+r, numcells);
+
+			val py1 = hash(miny, maxy, x(2*i+1)-r, numcells);
+			val py2 = hash(miny, maxy, x(2*i+1)+r, numcells);
+
+			for(var a:Int = px1; a <= px2; a++)
+			{
+				for(var b:Int = py1; b <= py2; b++)
+				{
+					hashgrid(numcells * a + b).verts.add(i);
+				}
+			}
+		}
+		
+		// for(var i:Int = 0; i < numcells * numcells; i++)
+		// {
+		// 	for(std::set<int>::iterator it = hashgrid[i].verts.begin(); it != hashgrid[i].verts.end(); ++it)
+		// 	{
+		// 		std::set<int>::iterator it2 = it;
+		// 		for(++it2; it2 != hashgrid[i].verts.end(); ++it2)
+		// 		{
+		// 			pppairs.insert(std::pair<int, int>(*it, *it2));
+		// 		}
+		// 	}
+		// }
+		
+		
+		
 	}
 	
 	private def hash(min:Double, max:Double, value:Double, numcells:Int):Int
