@@ -6,10 +6,10 @@ public class HashCollisionDetector extends CollisionDetector
 	static type PPList = HashSet[Pair[Int,Int]];
 
 
-	static struct Cell{Cell haszero}
+	static class Cell
 	{
 		val verts = new HashSet[Int]();
-	};
+	}
 
 	private var numcells:Int = 0;
 	private var hashgrid:Array[Cell] = null;
@@ -83,17 +83,28 @@ public class HashCollisionDetector extends CollisionDetector
 			}
 		}
 		
-		// for(var i:Int = 0; i < numcells * numcells; i++)
-		// {
-		// 	for(std::set<int>::iterator it = hashgrid[i].verts.begin(); it != hashgrid[i].verts.end(); ++it)
-		// 	{
-		// 		std::set<int>::iterator it2 = it;
-		// 		for(++it2; it2 != hashgrid[i].verts.end(); ++it2)
-		// 		{
-		// 			pppairs.insert(std::pair<int, int>(*it, *it2));
-		// 		}
-		// 	}
-		// }
+		for(var i:Int = 0; i < numcells * numcells; i++)
+		{
+			
+			for(val c in hashgrid(i).verts)
+			{
+				for(val d in hashgrid(i).verts)
+				{
+					if(c != d)
+						pppairs.add(new Pair[Int, Int](c, d));
+				}
+			}
+			
+			
+			// for(std::set<int>::iterator it = hashgrid[i].verts.begin(); it != hashgrid[i].verts.end(); ++it)
+			// {
+			// 	std::set<int>::iterator it2 = it;
+			// 	for(++it2; it2 != hashgrid[i].verts.end(); ++it2)
+			// 	{
+			// 		pppairs.insert(Pair[Int, Int](*it, *it2));
+			// 	}
+			// }
+		}
 		
 		
 		
