@@ -2,8 +2,8 @@ Add these classes:
 
 ContestDetector.x10
 
-modify SimpleCollisionHandler.x10 to introduce a callback, handleCollisions
+modify SimpleCollisionHandler.x10 to introduce a callback, handleCollisions - DONE
 
-modify SceneReader.animate to only call penalty method OR to use SimpleCollisionHandler.
+modify SceneReader.animate to only call penalty method OR to use SimpleCollisionHandler. - DONE
 
 modify SceneTester to read in arguments for only one collision handling method.
