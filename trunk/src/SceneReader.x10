@@ -78,20 +78,22 @@ public class SceneReader
 		val output = new File(outputFileName);
 		val p = output.printer();
 		
-		scene.insertForce(new PenaltyForce(scene, k, thickness));
+		val detector = new HashCollisionDetector();
+		
+		scene.insertForce(new PenaltyForce(scene, detector, k, thickness));
 		
 		var oldpos:VectorXs;
 		var oldvel:VectorXs;
 		val euler = new SemiImplicitEuler();
-		val handler = new SimpleCollisionHandler(cor);
+		// val handler = new SimpleCollisionHandler(cor);
 		
 		for(var i:Double = 0.0; i < duration; i += dt)
 		{
-			oldpos = scene.getX();
-			oldvel = scene.getV();
+			// oldpos = scene.getX();
+			// oldvel = scene.getV();
 			
 			euler.stepScene(scene, dt);
-			handler.handleCollisions(scene, oldpos, oldvel, dt);
+			// handler.handleCollisions(scene, detector, oldpos, oldvel, dt);
 			scene.checkConsistency();
 			write( output, p, i ) ;
 		}

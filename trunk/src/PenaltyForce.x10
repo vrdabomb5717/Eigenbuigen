@@ -5,12 +5,14 @@ public class PenaltyForce extends Force
 	private var m_k:scalar;
 	private var m_thickness:scalar;
 	private m_scene:TwoDScene;
+	private m_detector:CollisionDetector;
 	
-	public def this(scene:TwoDScene, stiffness:scalar, thickness:scalar)
+	public def this(scene:TwoDScene, detector:CollisionDetector, stiffness:scalar, thickness:scalar)
 	{
 		m_scene = scene;
 		m_k = stiffness;
 		m_thickness = thickness;
+		m_detector = detector;
 	}
 
 	public def addEnergyToTotal(x:VectorXs, v:VectorXs, m:VectorXs, E:scalar):void
@@ -20,15 +22,38 @@ public class PenaltyForce extends Force
 	
 	public def addGradEToTotal(x:VectorXs, v:VectorXs, m:VectorXs, r:VectorXs, var gradE:VectorXs)
 	{
-		val num_particles = m_scene.getNumParticles();
+		class PenaltyCallback extends DetectionCallback
+		{
+			private var force:PenaltyForce;
+			private var pos:VectorXs;
+			private var grad:VectorXs;
+			
+			public def this(f:PenaltyForce, x:VectorXs, gradE:VectorXs)
+			{
+				force = f;
+				pos = x;
+				grad = gradE;
+			}
+			
+			public def particleParticleCallback(idx1:Int, idx2:Int)
+			{
+				force.addParticleParticleGradEToTotal(pos, idx1, idx2, grad);
+			}
+			
+		}
 		
-		for(var i:Int = 0; i < num_particles; i++)
-	    {		
-	        for(var j:Int = i + 1; j < num_particles; j++)
-	        {				
-	            addParticleParticleGradEToTotal(x, i, j, gradE);
-	        }
-	    }
+		val callback = new PenaltyCallback(this, x, gradE);
+		m_detector.performCollisionDetection(m_scene, x, x, callback);
+		
+		// val num_particles = m_scene.getNumParticles();
+		// 
+		// for(var i:Int = 0; i < num_particles; i++)
+		// 	    {		
+		// 	        for(var j:Int = i + 1; j < num_particles; j++)
+		// 	        {				
+		// 	            addParticleParticleGradEToTotal(x, i, j, gradE);
+		// 	        }
+		// 	    }
 	}
 	
 	// Adds the gradient of the penalty potential (-1 * force) for a pair of 

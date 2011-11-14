@@ -12,22 +12,48 @@ public class SimpleCollisionHandler extends CollisionHandler
 		return "Simple Collision Handler";
 	}
 	
-	public def handleCollisions(scene:TwoDScene, oldpos:VectorXs, oldvel:VectorXs, dt:scalar)
+	public def handleCollisions(scene:TwoDScene, detector:CollisionDetector, oldpos:VectorXs, oldvel:VectorXs, dt:scalar)
 	{
-		var n:VectorXs = new VectorXs(2);
-		val num_particles = scene.getNumParticles();
-
-		for( [i] in 0..(num_particles-1) )
+		class SimpleCollisionCallback extends DetectionCallback
 		{
-			for( [j] in (i + 1)..(num_particles-1) )
+			private var s:TwoDScene;
+			private var handler:SimpleCollisionHandler;
+			
+			public def this(sc:TwoDScene, h:SimpleCollisionHandler)
 			{
-				if((n = detectParticleParticle(scene,i,j,n)) != null )
+				s = sc;
+				handler = h;
+			}
+			
+			public def particleParticleCallback(idx1:Int, idx2:Int)
+			{
+				var n:VectorXs = new VectorXs(2);
+
+				if((n = handler.detectParticleParticle(s, idx1, idx2, n)) != null)
 				{
-					addParticleParticleImpulse(i,j,n, 0);
-					respondParticleParticle(scene,i,j,n);
+					handler.addParticleParticleImpulse(idx1, idx2, n, 0);
+					handler.respondParticleParticle(s, idx1, idx2, n);
 				}
 			}
 		}
+		
+		val callback = new SimpleCollisionCallback(scene, this);
+		detector.performCollisionDetection(scene, scene.getX(), scene.getX(), callback);
+		
+		// var n:VectorXs = new VectorXs(2);
+		// val num_particles = scene.getNumParticles();
+		// 
+		// for( [i] in 0..(num_particles-1) )
+		// {
+		// 	for( [j] in (i + 1)..(num_particles-1) )
+		// 	{
+		// 		if((n = detectParticleParticle(scene,i,j,n)) != null )
+		// 		{
+		// 			addParticleParticleImpulse(i,j,n, 0);
+		// 			respondParticleParticle(scene,i,j,n);
+		// 		}
+		// 	}
+		// }
 	}
 	
 	private def detectParticleParticle(scene:TwoDScene, idx1:Int, idx2:Int, var n:VectorXs):VectorXs
