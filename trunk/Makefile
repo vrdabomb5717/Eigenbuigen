@@ -59,26 +59,26 @@ sequential: $(P1).out
 $(P1).out: $(P1_ASYNCS:%=$(P1).%.buildandrun) 
 
 $(P1).%.buildandrun: $(P1).exe   
-        salloc -n1 srun.x10sock ./$(P1).exe $(P1_INPUT) $(P1_OUTPUT) $(P1_NUM_PARTICLES) $(P1_DT) $(P1_DURATION) $(P1_K) $(P1_THICKNESS) $(P1_COR) > $(P1).out
-        @echo "Dumping contents of $(P1).out ... "
-        @grep "" $(P1).out
-        @echo " "
-        @echo "Find your results in $(P1).out"
-        @echo " "
+	salloc -n1 srun.x10sock ./$(P1).exe $(P1_INPUT) $(P1_OUTPUT) $(P1_NUM_PARTICLES) $(P1_DT) $(P1_DURATION) $(P1_K) $(P1_THICKNESS) $(P1_COR) > $(P1).out
+	@echo "Dumping contents of $(P1).out ... "
+	@grep "" $(P1).out
+	@echo " "
+	@echo "Find your results in $(P1).out"
+	@echo " "
 
 $(P1).exe: $(P1).x10
-        $(X10_PATH)/x10c++ -t -v -report postcompile=1 -o $(P1).exe -optimize -O -NO_CHECKS $(P1).x10
+	$(X10_PATH)/x10c++ -t -v -report postcompile=1 -o $(P1).exe -optimize -O -NO_CHECKS $(P1).x10
 
 parallel: $(P2).out
 $(P2).out: $(P2_ASYNCS:%=$(P2).%.buildandrun) 
 
 $(P2).%.buildandrun: $(P2).exe   
-        salloc -n1 srun.x10sock ./$(P2).exe $(P2_INPUT) $(P2_OUTPUT) $(P2_NUM_PARTICLES) $(P2_DT) $(P2_DURATION) $(P2_K) $(P2_THICKNESS) $(P2_COR) > $(P2).out
-        @echo "Dumping contents of $(P2).out ... "
-        @grep "" $(P2).out
-        @echo " "
-        @echo "Find your results in $(P2).out"
-        @echo " "
+	salloc -n1 srun.x10sock ./$(P2).exe $(P2_INPUT) $(P2_OUTPUT) $(P2_NUM_PARTICLES) $(P2_DT) $(P2_DURATION) $(P2_K) $(P2_THICKNESS) $(P2_COR) > $(P2).out
+	@echo "Dumping contents of $(P2).out ... "
+	@grep "" $(P2).out
+	@echo " "
+	@echo "Find your results in $(P2).out"
+	@echo " "
 
 $(P2).exe: $(P2).x10
-        $(X10_PATH)/x10c++ -t -v -report postcompile=1 -o $(P2).exe -optimize -O -NO_CHECKS src/$(P2).x10
+	$(X10_PATH)/x10c++ -t -v -report postcompile=1 -o $(P2).exe -optimize -O -NO_CHECKS src/$(P2).x10
