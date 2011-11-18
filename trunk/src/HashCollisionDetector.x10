@@ -55,15 +55,14 @@ public class HashCollisionDetector extends CollisionDetector
 			if(x(2*i+1) < miny)
 				miny = x(2*i+1);
 		}		
-		
+				
 		if(hashgrid == null)
-			hashgrid = new Array[Cell](numcells*numcells);
+			hashgrid = new Array[Cell](numcells*numcells, new Cell());
 
 		for(var i:Int = 0; i < numcells * numcells; i++)
 		{
 			hashgrid(i).verts.clear();
-		}
-
+		}		
 
 		for(var i:Int = 0; i < scene.getNumParticles(); i++)
 		{
@@ -82,10 +81,9 @@ public class HashCollisionDetector extends CollisionDetector
 				}
 			}
 		}
-		
+				
 		for(var i:Int = 0; i < numcells * numcells; i++)
-		{
-			
+		{			
 			for(val c in hashgrid(i).verts)
 			{
 				for(val d in hashgrid(i).verts)

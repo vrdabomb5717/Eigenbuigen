@@ -85,7 +85,7 @@ public class SceneReader
 		var oldpos:VectorXs;
 		var oldvel:VectorXs;
 		val euler = new SemiImplicitEuler();
-		// val handler = new SimpleCollisionHandler(cor);
+		val handler = new SimpleCollisionHandler(cor);
 		
 		for(var i:Double = 0.0; i < duration; i += dt)
 		{
