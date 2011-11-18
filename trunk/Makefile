@@ -67,7 +67,7 @@ $(P1).%.buildandrun: $(P1).exe
 	@echo " "
 
 $(P1).exe: $(P1).x10
-	$(X10_PATH)/x10c++ -t -v -report postcompile=1 -o $(P1).exe -optimize -O -NO_CHECKS $(P1).x10
+	$(X10_PATH)/x10c++ -t -v -report postcompile=1 -o $(P1).exe -optimize -O -NO_CHECKS src/$(P1).x10
 
 parallel: $(P2).out
 $(P2).out: $(P2_ASYNCS:%=$(P2).%.buildandrun) 
