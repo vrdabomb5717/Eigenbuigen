@@ -1,5 +1,13 @@
 # IMPORTANT: Change MacFramework to LinuxFramework when necessary.
 
+X10_PATH=/opt/x10-2.2.0.1/bin
+
+# environment variables
+X10_NTHREADS := 24
+#X10_STATIC_THREADS := false
+#X10LAUNCHER_NPROCS := 1
+
+
 CC = g++
 
 ExeName = main
@@ -9,6 +17,32 @@ Main = Simulator_Main.cpp
 MacFramework = -framework Carbon -framework OpenGL -framework GLUT
 LinuxFramework = -lglut -lGLU
 
+# Sequential Parameters 
+P1=SceneTester
+P1_ASYNCS=1
+P1_INPUT=./src/test
+P1_OUTPUT=./src/outseq
+P1_NUM_TRIALS=2
+P1_NUM_PARTICLES=3
+P1_DT=0.001
+P1_DURATION=5.0
+P1_K=100.0
+P1_THICKNESS=0.00
+P1_COR=1.0
+
+# Parallel Parameters 
+P2=SceneTesterPar
+P2_ASYNCS=1
+P2_INPUT=./src/test
+P2_OUTPUT=./src/outpar
+P2_NUM_TRIALS=2
+P2_NUM_PARTICLES=3
+P2_DT=0.001
+P2_DURATION=5.0
+P2_K=100.0
+P2_THICKNESS=0.00
+P2_COR=1.0
+
 all: main
 
 main: $(Main) $(HEdge) $(GLScene)
@@ -16,3 +50,35 @@ main: $(Main) $(HEdge) $(GLScene)
 
 clean:
 	rm -f $(ExeName)
+
+functests: sequential parallel
+
+perftests: sequential parallel
+
+sequential: $(P1).out
+$(P1).out: $(P1_ASYNCS:%=$(P1).%.buildandrun) 
+
+$(P1).%.buildandrun: $(P1).exe   
+        salloc -n1 srun.x10sock ./$(P1).exe $(P1_INPUT) $(P1_OUTPUT) $(P1_NUM_PARTICLES) $(P1_DT) $(P1_DURATION) $(P1_K) $(P1_THICKNESS) $(P1_COR) > $(P1).out
+        @echo "Dumping contents of $(P1).out ... "
+        @grep "" $(P1).out
+        @echo " "
+        @echo "Find your results in $(P1).out"
+        @echo " "
+
+$(P1).exe: $(P1).x10
+        $(X10_PATH)/x10c++ -t -v -report postcompile=1 -o $(P1).exe -optimize -O -NO_CHECKS $(P1).x10
+
+parallel: $(P2).out
+$(P2).out: $(P2_ASYNCS:%=$(P2).%.buildandrun) 
+
+$(P2).%.buildandrun: $(P2).exe   
+        salloc -n1 srun.x10sock ./$(P2).exe $(P2_INPUT) $(P2_OUTPUT) $(P2_NUM_PARTICLES) $(P2_DT) $(P2_DURATION) $(P2_K) $(P2_THICKNESS) $(P2_COR) > $(P2).out
+        @echo "Dumping contents of $(P2).out ... "
+        @grep "" $(P2).out
+        @echo " "
+        @echo "Find your results in $(P2).out"
+        @echo " "
+
+$(P2).exe: $(P2).x10
+        $(X10_PATH)/x10c++ -t -v -report postcompile=1 -o $(P2).exe -optimize -O -NO_CHECKS src/$(P2).x10

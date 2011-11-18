@@ -1,6 +1,6 @@
 import x10.util.*;
 
-public class HashCollisionDetector extends CollisionDetector
+public class HashCollisionDetectorPar extends CollisionDetector
 {
 
 	static type PPList = HashSet[Pair[Int,Int]];
@@ -59,32 +59,34 @@ public class HashCollisionDetector extends CollisionDetector
 		if(hashgrid == null)
 			hashgrid = new Array[Cell](numcells*numcells, new Cell());
 
-		for(var i:Int = 0; i < numcells * numcells; i++)
+		finish for(var i:Int = 0; i < numcells * numcells; i++)
 		{
-			hashgrid(i).verts.clear();
+			async hashgrid(i).verts.clear();
 		}		
 
-		for(var i:Int = 0; i < scene.getNumParticles(); i++)
+		finish for(var i:Int = 0; i < scene.getNumParticles(); i++)
 		{
-			val r = scene.getRadius(i);
-			val px1 = hash(minx, maxx, x(2*i)-r, numcells);
-			val px2 = hash(minx, maxx, x(2*i)+r, numcells);
+			async{
+				val r = scene.getRadius(i);
+				val px1 = hash(minx, maxx, x(2*i)-r, numcells);
+				val px2 = hash(minx, maxx, x(2*i)+r, numcells);
 
-			val py1 = hash(miny, maxy, x(2*i+1)-r, numcells);
-			val py2 = hash(miny, maxy, x(2*i+1)+r, numcells);
+				val py1 = hash(miny, maxy, x(2*i+1)-r, numcells);
+				val py2 = hash(miny, maxy, x(2*i+1)+r, numcells);
 
-			for(var a:Int = px1; a <= px2; a++)
-			{
-				for(var b:Int = py1; b <= py2; b++)
+				for(var a:Int = px1; a <= px2; a++)
 				{
-					hashgrid(numcells * a + b).verts.add(i);
+					for(var b:Int = py1; b <= py2; b++)
+					{
+						hashgrid(numcells * a + b).verts.add(i);
+					}
 				}
 			}
 		}
 				
-		for(var i:Int = 0; i < numcells * numcells; i++)
+		finish for(var i:Int = 0; i < numcells * numcells; i++)
 		{			
-			for(val c in hashgrid(i).verts)
+			async for(val c in hashgrid(i).verts)
 			{
 				for(val d in hashgrid(i).verts)
 				{
