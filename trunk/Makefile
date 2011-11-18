@@ -20,8 +20,8 @@ LinuxFramework = -lglut -lGLU
 # Sequential Parameters 
 P1=SceneTester
 P1_ASYNCS=1
-P1_INPUT=./src/test
-P1_OUTPUT=./src/outseq
+P1_INPUT=./src/test.txt
+P1_OUTPUT=./src/outseq.txt
 P1_NUM_TRIALS=2
 P1_NUM_PARTICLES=3
 P1_DT=0.001
@@ -33,8 +33,8 @@ P1_COR=1.0
 # Parallel Parameters 
 P2=SceneTesterPar
 P2_ASYNCS=1
-P2_INPUT=./src/test
-P2_OUTPUT=./src/outpar
+P2_INPUT=./src/test.txt
+P2_OUTPUT=./src/outpar.txt
 P2_NUM_TRIALS=2
 P2_NUM_PARTICLES=3
 P2_DT=0.001
@@ -66,7 +66,7 @@ $(P1).%.buildandrun: $(P1).exe
 	@echo "Find your results in $(P1).out"
 	@echo " "
 
-$(P1).exe: $(P1).x10
+$(P1).exe: src/$(P1).x10
 	$(X10_PATH)/x10c++ -t -v -report postcompile=1 -o $(P1).exe -optimize -O -NO_CHECKS src/$(P1).x10
 
 parallel: $(P2).out
@@ -80,5 +80,5 @@ $(P2).%.buildandrun: $(P2).exe
 	@echo "Find your results in $(P2).out"
 	@echo " "
 
-$(P2).exe: $(P2).x10
+$(P2).exe: src/$(P2).x10
 	$(X10_PATH)/x10c++ -t -v -report postcompile=1 -o $(P2).exe -optimize -O -NO_CHECKS src/$(P2).x10

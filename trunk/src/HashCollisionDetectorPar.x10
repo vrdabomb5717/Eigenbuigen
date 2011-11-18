@@ -59,12 +59,12 @@ public class HashCollisionDetectorPar extends CollisionDetector
 		if(hashgrid == null)
 			hashgrid = new Array[Cell](numcells*numcells, new Cell());
 
-		finish for(var i:Int = 0; i < numcells * numcells; i++)
+		finish for(i in 0..(numcells * numcells - 1))
 		{
 			async hashgrid(i).verts.clear();
 		}		
 
-		finish for(var i:Int = 0; i < scene.getNumParticles(); i++)
+		finish for(i in 0..(scene.getNumParticles() - 1))
 		{
 			async{
 				val r = scene.getRadius(i);
@@ -84,7 +84,7 @@ public class HashCollisionDetectorPar extends CollisionDetector
 			}
 		}
 				
-		finish for(var i:Int = 0; i < numcells * numcells; i++)
+		finish for(i in 0..(numcells * numcells - 1))
 		{			
 			async for(val c in hashgrid(i).verts)
 			{

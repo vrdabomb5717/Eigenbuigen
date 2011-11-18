@@ -5,7 +5,7 @@ import x10.compiler.NativeCPPInclude;
 import x10.compiler.NativeCPPCompilationUnit;
 
 @NativeCPPCompilationUnit( "Particle_Simulator.cpp" )
-public class SceneReader
+public class SceneReaderPar
 {
 	public def this(particles:Int)
 	{
