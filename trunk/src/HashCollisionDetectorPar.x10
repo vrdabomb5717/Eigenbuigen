@@ -82,7 +82,7 @@ public class HashCollisionDetectorPar extends CollisionDetector
 					
 					for( [j] in n_start..(n_end-1) )
 					{
-						val r = scene.getRadius(i);
+						val r = scene.getRadius(j);
 						val px1 = hash(minx, maxx, x(2*j)-r, numcells);
 						val px2 = hash(minx, maxx, x(2*j)+r, numcells);
 
