@@ -17,7 +17,7 @@ Main = Simulator_Main.cpp
 MacFramework = -framework Carbon -framework OpenGL -framework GLUT
 LinuxFramework = -lglut -lGLU
 
-NUM_PARTICLES=100 400 900 1600 2500 3600 4900 6400 8100 10000
+NUM_PARTICLES=1 4 9 16 25 36 49 64 81
 
 # Sequential Parameters 
 P1=SceneTester
