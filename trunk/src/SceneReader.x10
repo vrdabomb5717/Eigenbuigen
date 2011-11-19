@@ -33,7 +33,7 @@ public class SceneReader
 				// mass px py vx vy radius
 				
 				if(split.size < 6)
-				{	
+				{
 					x10.io.Console.OUT.println("Incorrect number of arguments on line " + (counter + 1) + ". Arguments provided: " + split.size +". " + line1);
 					return;
 				}
@@ -46,7 +46,7 @@ public class SceneReader
 				vy = Double.parse(split(4));
 				radius = Double.parse(split(5));
 				
-				x10.io.Console.OUT.println( "new particle at: " + px + ":" + py + " with v: " + vx + ":" + vy ) ;
+				// x10.io.Console.OUT.println( "new particle at: " + px + ":" + py + " with v: " + vx + ":" + vy ) ;
 				
 				pos(0) = px;
 				pos(1) = py;
@@ -58,10 +58,10 @@ public class SceneReader
 				scene.setM(counter, mass);
 				scene.setRadius(counter, radius);
 				
-				counter++;	
+				counter++;
 			}
 			
-			x10.io.Console.OUT.println( "positions of particles: " + scene.getX().toString() ) ;
+			// x10.io.Console.OUT.println( "positions of particles: " + scene.getX().toString() ) ;
 		} 
 		catch (ioe:IOException) 
 		{
