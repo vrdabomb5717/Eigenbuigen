@@ -59,45 +59,63 @@ public class HashCollisionDetectorPar extends CollisionDetector
 		if(hashgrid == null)
 			hashgrid = new Array[Cell](numcells*numcells, new Cell());
 
-		finish for(i in 0..(numcells * numcells - 1))
+		val max_async = 24 ;
+		
+		clocked finish
 		{
-			async hashgrid(i).verts.clear();
-		}		
-
-		finish for(i in 0..(scene.getNumParticles() - 1))
-		{
-			async{
-				val r = scene.getRadius(i);
-				val px1 = hash(minx, maxx, x(2*i)-r, numcells);
-				val px2 = hash(minx, maxx, x(2*i)+r, numcells);
-
-				val py1 = hash(miny, maxy, x(2*i+1)-r, numcells);
-				val py2 = hash(miny, maxy, x(2*i+1)+r, numcells);
-
-				for(var a:Int = px1; a <= px2; a++)
-				{
-					for(var b:Int = py1; b <= py2; b++)
-					{
-						hashgrid(numcells * a + b).verts.add(i);
-					}
-				}
-			}
-		}
-				
-		finish for(i in 0..(numcells * numcells - 1))
-		{			
-			async for(val c in hashgrid(i).verts)
+			for( [i] in 0..( 24-1 ) )
 			{
-				for(val d in hashgrid(i).verts)
+				val i_start = i*(numcells * numcells)/max_async ;	// find start of async array
+				
+				val i_end = i == max_async-1 ? numcells * numcells : (i_start+numcells * numcells)/max_async ;	// find end of async array
+				
+				val n_start = i*(scene.getNumParticles())/max_async ;	// find start of async array
+				
+				val n_end = i == max_async-1 ? scene.getNumParticles() : (i_start+scene.getNumParticles())/max_async ;	// find end of async array
+				
+				clocked async
 				{
-					if(c != d)
-						pppairs.add(new Pair[Int, Int](c, d));
+					for( [j] in i_start..(i_end-1) )
+						hashgrid(j).verts.clear() ;
+					
+					Clock.advanceAll() ;
+					
+					for( [j] in n_start..(n_end-1) )
+					{
+						val r = scene.getRadius(i);
+						val px1 = hash(minx, maxx, x(2*j)-r, numcells);
+						val px2 = hash(minx, maxx, x(2*j)+r, numcells);
+
+						val py1 = hash(miny, maxy, x(2*j+1)-r, numcells);
+						val py2 = hash(miny, maxy, x(2*j+1)+r, numcells);
+
+						for(var a:Int = px1; a <= px2; a++)
+						{
+							for(var b:Int = py1; b <= py2; b++)
+							{
+								hashgrid(numcells * a + b).verts.add(j);
+							}
+						}
+					}
+					
+					Clock.advanceAll() ;
+					
+					for( [j] in i_start..(i_end-1) )
+					{
+						for(val c in hashgrid(j).verts)
+						{
+							for(val d in hashgrid(j).verts)
+							{
+								if(c != d)
+									pppairs.add(new Pair[Int, Int](c, d));
+							}
+						}
+					}
+					
+					Clock.advanceAll() ;
 				}
 			}
 		}
-		
-		
-		
 	}
 	
 	private def hash(min:Double, max:Double, value:Double, numcells:Int):Int
