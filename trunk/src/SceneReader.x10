@@ -1,10 +1,6 @@
 import x10.io.*;
 import MathDefs.*;
-import x10.compiler.Native;
-import x10.compiler.NativeCPPInclude;
-import x10.compiler.NativeCPPCompilationUnit;
 
-@NativeCPPCompilationUnit( "Particle_Simulator.cpp" )
 public class SceneReader
 {
 	public def this(particles:Int)
@@ -99,7 +95,6 @@ public class SceneReader
 		}
 		
 		x10.io.Console.OUT.println( "creating animation" ) ;
-		{ @Native("c++","start( outputFileName );") {} }
 	}
 	
 	
