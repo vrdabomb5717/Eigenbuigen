@@ -1,13 +1,7 @@
 Add these classes:
 
-ContestDetector.x10 - DONE
-
-modify SimpleCollisionHandler.x10 to introduce a callback, handleCollisions - DONE
-
-modify SceneReader.animate to only call penalty method OR to use SimpleCollisionHandler. - DONE
-
-modify SceneTester to read in arguments for only one collision handling method.
-
+generate files with increasing number of particles to test scaling.
+edit makefile to test scaling.
 
 Places we can add asyncs:
 	- reading in a textfile in SceneReader, but depends upon passings strings and making matrices global refs

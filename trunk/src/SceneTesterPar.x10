@@ -1,5 +1,7 @@
 public class SceneTesterPar
 {
+	static val Meg = 1000*1000;
+	
 	public static def main(args:Rail[String])
 	{
 		if (args.size < 8) 
@@ -20,9 +22,11 @@ public class SceneTesterPar
 		Console.OUT.println( "creating: " + num_particles + ":" + dt + ":" + duration ) ;
 		
 		val sr = new SceneReaderPar(num_particles);
-
 		sr.read(inputFileName);
+		val time = System.nanoTime();
 		sr.animate(dt, duration, k, thickness, cor, outputFileName);
+		val parallelTime = (System.nanoTime()-time)/Meg;
+		Console.OUT.println("Time for parallel animation: " + parallelTime) ;
 		// sr.write(outputFileName);
 	}
 }

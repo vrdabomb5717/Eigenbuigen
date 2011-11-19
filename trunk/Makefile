@@ -49,13 +49,13 @@ main: $(Main) $(HEdge) $(GLScene)
 	$(CC) -g -o $(ExeName) $(Main) $(MacFramework)
 
 clean:
-	rm -f $(ExeName)
+	rm -f $(ExeName) $(P1).exe $(P2).exe *.cc *.h
 
 functests: sequential parallel
 
 perftests: sequential parallel
 
-sequential: $(P1).out
+sequential: $(P1).exe $(P1).out
 $(P1).out: $(P1_ASYNCS:%=$(P1).%.buildandrun) 
 
 $(P1).%.buildandrun: $(P1).exe   
@@ -69,7 +69,7 @@ $(P1).%.buildandrun: $(P1).exe
 $(P1).exe: src/$(P1).x10
 	$(X10_PATH)/x10c++ -t -v -report postcompile=1 -o $(P1).exe -optimize -O -NO_CHECKS src/$(P1).x10
 
-parallel: $(P2).out
+parallel: $(P2).exe $(P2).out
 $(P2).out: $(P2_ASYNCS:%=$(P2).%.buildandrun) 
 
 $(P2).%.buildandrun: $(P2).exe   

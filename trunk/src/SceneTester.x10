@@ -1,5 +1,7 @@
 public class SceneTester
 {
+	static val Meg = 1000*1000;
+	
 	public static def main(args:Rail[String])
 	{
 		if (args.size < 8) 
@@ -20,9 +22,11 @@ public class SceneTester
 		Console.OUT.println( "creating: " + num_particles + ":" + dt + ":" + duration ) ;
 		
 		val sr = new SceneReader(num_particles);
-
 		sr.read(inputFileName);
+		val time = System.nanoTime();
 		sr.animate(dt, duration, k, thickness, cor, outputFileName);
+		val serialTime = (System.nanoTime()-time)/Meg;
+		Console.OUT.println("Time for serial animation: " + serialTime) ;
 		// sr.write(outputFileName);
 	}
 }
