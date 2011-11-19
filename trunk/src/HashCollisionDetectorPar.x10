@@ -59,15 +59,15 @@ public class HashCollisionDetectorPar extends CollisionDetector
 		if(hashgrid == null)
 			hashgrid = new Array[Cell](numcells*numcells, new Cell());
 
-		val max_async = 24 ;
+		val max_async = Math.min( scene.getNumParticles(), 24 ) ;
 		
 		clocked finish
 		{
-			for( [i] in 0..( 24-1 ) )
+			for( [i] in 0..( max_async-1 ) )
 			{
 				val i_start = i*(numcells * numcells)/max_async ;	// find start of async array
 				
-				val i_end = i == max_async-1 ? numcells * numcells : (i_start+numcells * numcells)/max_async ;	// find end of async array
+				val i_end = i == max_async-1 ? numcells * numcells : ( i_start + numcells * numcells )/max_async ;	// find end of async array
 				
 				val n_start = i*(scene.getNumParticles())/max_async ;	// find start of async array
 				
@@ -82,13 +82,14 @@ public class HashCollisionDetectorPar extends CollisionDetector
 					
 					for( [j] in n_start..(n_end-1) )
 					{
+						// Console.OUT.println( "hashing: " + j + ": from: " + n_start + " to " + n_end ) ;
 						val r = scene.getRadius(j);
 						val px1 = hash(minx, maxx, x(2*j)-r, numcells);
 						val px2 = hash(minx, maxx, x(2*j)+r, numcells);
-
+						
 						val py1 = hash(miny, maxy, x(2*j+1)-r, numcells);
 						val py2 = hash(miny, maxy, x(2*j+1)+r, numcells);
-
+						
 						for(var a:Int = px1; a <= px2; a++)
 						{
 							for(var b:Int = py1; b <= py2; b++)
@@ -107,7 +108,10 @@ public class HashCollisionDetectorPar extends CollisionDetector
 							for(val d in hashgrid(j).verts)
 							{
 								if(c != d)
+								{
+									// Console.OUT.println( "adding collision: " + c + ":" + d ) ;
 									pppairs.add(new Pair[Int, Int](c, d));
+								}
 							}
 						}
 					}
