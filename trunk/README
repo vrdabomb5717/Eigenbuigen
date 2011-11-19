@@ -22,6 +22,10 @@ After compiling the C++ file for the simulator please provide the name of the ou
 as an argument when running the simulator GUI.
 
 
+The Makefile also works on Athos. Run 'make perftests' to demonstrate scaling. This also suffices for testing functionality testing, which can be run from 'make functests'.
+
+
+
 Thanks!
 
 Nathaniel Clinger
