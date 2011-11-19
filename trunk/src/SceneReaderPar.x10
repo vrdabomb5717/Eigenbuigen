@@ -61,7 +61,7 @@ public class SceneReaderPar
 				counter++;	
 			}
 			
-			x10.io.Console.OUT.println( "positions of particles: " + scene.getX().toString() ) ;
+			// x10.io.Console.OUT.println( "positions of particles: " + scene.getX().toString() ) ;
 		} 
 		catch (ioe:IOException) 
 		{
@@ -113,7 +113,7 @@ public class SceneReaderPar
 			{
 				line = i + " " + dt + " " + pos(i*2) + " " + pos(i*2+1) + " " + scene.getRadius( i/2 ) ;
 				
-				x10.io.Console.OUT.println( "printing to file: " + line ) ;
+				// x10.io.Console.OUT.println( "printing to file: " + line ) ;
 				
 				p.println( line ) ;
 			}
