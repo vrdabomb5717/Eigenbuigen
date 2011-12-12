@@ -30,7 +30,7 @@ public class HashCollisionDetector extends CollisionDetector
 	}
 	
 	private def findCollidingPairs(scene:TwoDScene, x:VectorXs, pppairs:PPList)
-	{		
+	{
 		if(numcells == 0)
 		{
 			numcells = Math.sqrt(scene.getNumParticles()) as Int;
@@ -61,8 +61,8 @@ public class HashCollisionDetector extends CollisionDetector
 
 		for(var i:Int = 0; i < numcells * numcells; i++)
 		{
-			hashgrid(i).verts.clear();
-		}		
+			hashgrid(i).verts.clear() ;
+		}
 
 		for(var i:Int = 0; i < scene.getNumParticles(); i++)
 		{
@@ -77,11 +77,11 @@ public class HashCollisionDetector extends CollisionDetector
 			{
 				for(var b:Int = py1; b <= py2; b++)
 				{
-					hashgrid(numcells * a + b).verts.add(i);
+					hashgrid( numcells * a + b ).verts.add( i ) ;
 				}
 			}
 		}
-				
+		
 		for(var i:Int = 0; i < numcells * numcells; i++)
 		{			
 			for(val c in hashgrid(i).verts)
@@ -89,13 +89,16 @@ public class HashCollisionDetector extends CollisionDetector
 				for(val d in hashgrid(i).verts)
 				{
 					if(c != d)
-						pppairs.add(new Pair[Int, Int](c, d));
+						pppairs.add( new Pair[Int, Int]( Math.min( c, d ), Math.max( c, d ) ) );
 				}
 			}
 		}
 		
-		
-		
+		for( p in pppairs )
+		{
+			Console.OUT.print( p + " " ) ;
+		}
+		Console.OUT.println() ;
 	}
 	
 	private def hash(min:Double, max:Double, value:Double, numcells:Int):Int

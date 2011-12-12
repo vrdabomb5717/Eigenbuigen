@@ -69,12 +69,12 @@ public class SceneReaderPar
 		}
 	}
 	
-	public def animate(dt:scalar, duration:scalar, k:scalar, thickness:scalar, cor:scalar, outputFileName:String )
+	public def animate(dt:scalar, duration:scalar, k:scalar, thickness:scalar, cor:scalar, outputFileName:String, max_async:Int )
 	{
 		val output = new File(outputFileName);
 		val p = output.printer();
 		
-		val detector = new HashCollisionDetectorPar();
+		val detector = new HashCollisionDetectorPar( max_async ) ;
 		
 		scene.insertForce(new PenaltyForce(scene, detector, k, thickness));
 		
