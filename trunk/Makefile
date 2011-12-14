@@ -22,8 +22,8 @@ NUM_PARTICLES=64 81 100
 
 NUM_ASYNCS=2 5 10 15 20 25
 
-TEST_PARTICLES=100
-
+TEST_PARTICLES=64
+TEST_ASYNCS=10
 
 # Sequential Parameters 
 P1=SceneTester
@@ -59,7 +59,7 @@ main: $(Main) $(HEdge) $(GLScene)
 clean:
 	rm -f $(ExeName) $(P1).exe $(P2).exe *.cc *.h
 
-functests: sequentialtest paralleltest
+functests: sequentialtest paralleltest compare
 
 perftests: sequential parallel
 
@@ -69,26 +69,26 @@ scaletests: parallel_scale
 
 sequentialtest: $(P1).exe $(P1)test.out
 
-$(P1).%.buildandrun: $(P1).exe   
-	salloc -n1 srun.x10sock ./$(P1).exe test/$*.txt output/$*.seq.txt $* $(P1_DT) $(P1_DURATION) $(P1_K) $(P1_THICKNESS) $(P1_COR) > output/$(P1).$*.out
-	@echo "Dumping contents of output/$(P1).$*.out ... "
-	@grep "" output/$(P1).$*.out
+$(P1)test.out: $(P1).exe   
+	salloc -n1 srun.x10sock ./$(P1).exe test/$(TEST_PARTICLES).txt output/$(TEST_PARTICLES).seqtest.txt $(TEST_PARTICLES) $(P1_DT) $(P1_DURATION) $(P1_K) $(P1_THICKNESS) $(P1_COR) > output/$(P1).test.$(TEST_PARTICLES).txt
 	@echo " "
-	@echo "Find your results in output/$(P1).$*.out"
-	@echo " "
-
+	
 
 # Test the parallel code's functionality by running on TEST_PARTICLES and then comparing to sequential code's performance
 
 paralleltest: $(P2).exe $(P2)test.out
 
-$(P2)test.out: $(NUM_ASYNCS:%=$(P2)scale.%.buildandrun) 
-	salloc -n1 srun.x10sock ./$(P2).exe test/$(P2_SCALE_PARTICLES).txt output/$*.scale.txt $(P2_SCALE_PARTICLES) $(P2_DT) $(P2_DURATION) $(P2_K) $(P2_THICKNESS) $(P2_COR) $* > output/$(P2).scale.$*.out
-	@echo "Dumping contents of output/$(P2).scale.$*.out ... "
-	@grep "" output/$(P2).scale.$*.out
+$(P2)test.out: $(P2).exe
+	salloc -n1 srun.x10sock ./$(P2).exe test/$(TEST_PARTICLES).txt output/$(TEST_PARTICLES).partest.txt $(TEST_PARTICLES) $(P2_DT) $(P2_DURATION) $(P2_K) $(P2_THICKNESS) $(P2_COR) $(TEST_ASYNCS) > output/$(P2).test.$(TEST_PARTICLES).txt
 	@echo " "
-	@echo "Find your results in output/$(P2).scale.$*.out"
+
+compare:
+	@echo "Comparing outputs of sequential and parallel code."
+	diff output/$(TEST_PARTICLES).seqtest.txt output/$(TEST_PARTICLES).partest.txt; if [ $$? -eq 0 ]; then echo "No differences. Pass!"; else echo "Differences present. Fail!"; fi
 	@echo " "
+	
+
+
 
 
 # Test the sequential code's performance by iterating through NUM_PARTICLES
@@ -97,11 +97,11 @@ sequential: $(P1).exe $(P1).out
 $(P1).out: $(NUM_PARTICLES:%=$(P1).%.buildandrun) 
 
 $(P1).%.buildandrun: $(P1).exe   
-	salloc -n1 srun.x10sock ./$(P1).exe test/$*.txt output/$*.seq.txt $* $(P1_DT) $(P1_DURATION) $(P1_K) $(P1_THICKNESS) $(P1_COR) > output/$(P1).$*.out
-	@echo "Dumping contents of output/$(P1).$*.out ... "
-	@grep "" output/$(P1).$*.out
+	salloc -n1 srun.x10sock ./$(P1).exe test/$*.txt output/$*.seq.txt $* $(P1_DT) $(P1_DURATION) $(P1_K) $(P1_THICKNESS) $(P1_COR) > output/$(P1).$*.txt
+	@echo "Dumping contents of output/$(P1).$*.txt ... "
+	@grep "" output/$(P1).$*.txt
 	@echo " "
-	@echo "Find your results in output/$(P1).$*.out"
+	@echo "Find your results in output/$(P1).$*.txt"
 	@echo " "
 
 $(P1).exe: src/$(P1).x10
@@ -115,11 +115,11 @@ parallel: $(P2).exe $(P2).out
 $(P2).out: $(NUM_PARTICLES:%=$(P2).%.buildandrun) 
 
 $(P2).%.buildandrun: $(P2).exe   
-	salloc -n1 srun.x10sock ./$(P2).exe test/$*.txt output/$*.par.txt $* $(P2_DT) $(P2_DURATION) $(P2_K) $(P2_THICKNESS) $(P2_COR) $(P2_MAX_ASYNCS) > output/$(P2).$*.out
-	@echo "Dumping contents of output/$(P2).$*.out ... "
-	@grep "" output/$(P2).$*.out
+	salloc -n1 srun.x10sock ./$(P2).exe test/$*.txt output/$*.par.txt $* $(P2_DT) $(P2_DURATION) $(P2_K) $(P2_THICKNESS) $(P2_COR) $(P2_MAX_ASYNCS) > output/$(P2).$*.txt
+	@echo "Dumping contents of output/$(P2).$*.txt ... "
+	@grep "" output/$(P2).$*.txt
 	@echo " "
-	@echo "Find your results in output/$(P2).$*.out"
+	@echo "Find your results in output/$(P2).$*.txt"
 	@echo " "
 
 $(P2).exe: src/$(P2).x10
@@ -134,9 +134,9 @@ parallel_scale: $(P2).exe $(P2)scale.out
 $(P2)scale.out: $(NUM_ASYNCS:%=$(P2)scale.%.buildandrun) 
 
 $(P2)scale.%.buildandrun: $(P2).exe   
-	salloc -n1 srun.x10sock ./$(P2).exe test/$(P2_SCALE_PARTICLES).txt output/$*.scale.txt $(P2_SCALE_PARTICLES) $(P2_DT) $(P2_DURATION) $(P2_K) $(P2_THICKNESS) $(P2_COR) $* > output/$(P2).scale.$*.out
-	@echo "Dumping contents of output/$(P2).scale.$*.out ... "
-	@grep "" output/$(P2).scale.$*.out
+	salloc -n1 srun.x10sock ./$(P2).exe test/$(P2_SCALE_PARTICLES).txt output/$*.scale.txt $(P2_SCALE_PARTICLES) $(P2_DT) $(P2_DURATION) $(P2_K) $(P2_THICKNESS) $(P2_COR) $* > output/$(P2).scale.$*.txt
+	@echo "Dumping contents of output/$(P2).scale.$*.txt ... "
+	@grep "" output/$(P2).scale.$*.txt
 	@echo " "
-	@echo "Find your results in output/$(P2).scale.$*.out"
+	@echo "Find your results in output/$(P2).scale.$*.txt"
 	@echo " "
