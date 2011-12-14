@@ -28,20 +28,30 @@ public class HashCollisionDetectorPar extends CollisionDetector
 	{
 		assert (qs-qe).norm() < 1e-8 : "Contest collision detector is only designed for use with the penalty method!";
 		
-		val pppairs = new PPList();
+		val pppairs = new Accumulator[PPList]( new Reducer() ) ;
 		
 		findCollidingPairs(scene, qe, pppairs);
 		
-		for(p:Pair[Int,Int] in pppairs)
+		for( p:Pair[Int,Int] in pppairs() )
 		{
 			dc.particleParticleCallback(p.first, p.second);
 		}
-
+	}
+	
+	public class Reducer implements Reducible[PPList]
+	{
+		public def zero():PPList = new PPList() ;
+		
+		public operator this(var a:PPList, var b:PPList ):PPList 
+		{
+			for( p in b )
+				a.add( p ) ;
+			return a ;
+		}
 	}
 	
 	
-	
-	private def findCollidingPairs(scene:TwoDScene, x:VectorXs, pppairs:PPList)
+	private def findCollidingPairs(scene:TwoDScene, x:VectorXs, pppairs:Accumulator[PPList])
 	{		
 		if(numcells == 0)
 		{
@@ -66,13 +76,12 @@ public class HashCollisionDetectorPar extends CollisionDetector
 				
 			if(x(2*i+1) < miny)
 				miny = x(2*i+1);
-		}		
-				
+		}
+		
 		if(hashgrid == null)
 			hashgrid = new Array[Cell](numcells*numcells, new Cell());
-
-		val max_async = Math.min( scene.getNumParticles(), 5 ) ;//MAX_ASYNC ) ;
 		
+		val max_async = Math.min( scene.getNumParticles(), 5 ) ;//MAX_ASYNC ) ;
 		
 		
 		clocked finish
@@ -86,6 +95,8 @@ public class HashCollisionDetectorPar extends CollisionDetector
 				val n_start = i*(scene.getNumParticles())/max_async ;	// find start of async array
 				
 				val n_end = i == max_async-1 ? scene.getNumParticles() : ( i_start + scene.getNumParticles()/max_async ) ;	// find end of async array
+				
+				val localPP = new PPList() ;
 				
 				clocked async
 				{
@@ -122,16 +133,18 @@ public class HashCollisionDetectorPar extends CollisionDetector
 							{
 								if( c != d )
 								{
-									atomic pppairs.add( new Pair[Int, Int]( Math.min( c, d ), Math.max( c, d ) ) ) ;
+									localPP.add( new Pair[Int, Int]( Math.min( c, d ), Math.max( c, d ) ) ) ;
 								}
 							}
 						}
 					}
 				}
+				
+				pppairs <- localPP ;
 			}
-		}
+		} ;
 		
-		for( p in pppairs )
+		for( p in pppairs() )
 		{
 			Console.OUT.print( p + " " ) ;
 		}
