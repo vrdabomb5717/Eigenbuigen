@@ -8,6 +8,7 @@ public class SceneReaderPar
 		scene = new TwoDScene(particles);
 	}
 	
+	// read file in
 	public def read(inputFileName:String)
 	{
 		try
@@ -69,6 +70,7 @@ public class SceneReaderPar
 		}
 	}
 	
+	// detect collisions using hash-based detection, apply forces to resolve collisions, integrate, and output to file.
 	public def animate( dt:scalar, duration:scalar, k:scalar, thickness:scalar, cor:scalar, outputFileName:String, max_async:Int )
 	{
 		val output = new File(outputFileName);
@@ -104,7 +106,7 @@ public class SceneReaderPar
 		x10.io.Console.OUT.println( "creating animation" ) ;
 	}
 	
-	
+	// display particles velocities and positions at each time step
 	public def write(output:File, p:Printer, dt:double )
 	{
 		try

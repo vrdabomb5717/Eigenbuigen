@@ -20,6 +20,7 @@ public class PenaltyForce extends Force
 		// Feel free to implement if you feel like it.
 	}
 	
+	// accumulate gradient of energy (Force) to provided vector
 	public def addGradEToTotal(x:VectorXs, v:VectorXs, m:VectorXs, var gradE:VectorXs)
 	{
 		class PenaltyCallback extends DetectionCallback

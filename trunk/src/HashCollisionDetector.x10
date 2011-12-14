@@ -19,6 +19,7 @@ public class HashCollisionDetector extends CollisionDetector
 		
 		val pppairs = new PPList();
 		
+		// find the colliding pairs and then resolve collisions per pair
 		findCollidingPairs(scene, qe, pppairs);
 		
 		for(p:Pair[Int,Int] in pppairs)
@@ -40,6 +41,7 @@ public class HashCollisionDetector extends CollisionDetector
 		var miny:Double = x(1);
 		var maxy:Double = x(1);
 		
+		// find min in x and y direction
 		for(var i:Int =0; i < scene.getNumParticles(); i++)
 		{
 			if(x(2*i) > maxx)
@@ -62,7 +64,8 @@ public class HashCollisionDetector extends CollisionDetector
 		{
 			hashgrid(i).verts.clear() ;
 		}
-
+		
+		// hash each particle to a cell and add it to a hashset in the grid
 		for(var i:Int = 0; i < scene.getNumParticles(); i++)
 		{
 			val r = scene.getRadius(i);
@@ -81,6 +84,7 @@ public class HashCollisionDetector extends CollisionDetector
 			}
 		}
 		
+		// add pairs of particles to final set that gets resolved
 		for(var i:Int = 0; i < numcells * numcells; i++)
 		{
 			for(val c in hashgrid(i).verts)
@@ -100,6 +104,7 @@ public class HashCollisionDetector extends CollisionDetector
 		Console.OUT.println() ;
 	}
 	
+	// hash particles based upon the difference in max and min in x or y direction.
 	private def hash(min:Double, max:Double, value:Double, numcells:Int):Int
 	{
 		val res = (value-min)/(max-min)*numcells;

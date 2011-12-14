@@ -56,6 +56,7 @@ public class SimpleCollisionHandler extends CollisionHandler
 		}
 	}
 	
+	// particles are colliding if they are closer than the sum of their radii
 	private def detectParticleParticle(scene:TwoDScene, idx1:Int, idx2:Int, var n:VectorXs):VectorXs
 	{
 		val x1 = scene.getX().segment(2*idx1);
@@ -79,6 +80,7 @@ public class SimpleCollisionHandler extends CollisionHandler
 		return null ;
 	}
 	
+	// apply force to resolve particle collision
 	private def respondParticleParticle(scene:TwoDScene, idx1:Int, idx2:Int, n:VectorXs)
 	{
 		val M = scene.getM();

@@ -44,6 +44,7 @@ public abstract class CollisionHandler
 		return m_impulses;
 	}
 	
+	// resolve forces
 	protected def addParticleParticleImpulse(idx1:Int, idx2:Int, n:VectorXs, time:Double)
 	{
 		m_impulses.add(CollisionInfo(idx1, idx2, n, time));

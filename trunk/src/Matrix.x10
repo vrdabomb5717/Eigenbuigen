@@ -36,8 +36,10 @@ public class Matrix
 			matrix(i,j) = other(i,j) ;
 	}
 	
+	// return element at locaation
 	public operator this(x:Int, y:Int):double = matrix(x,y) ;
 	
+	// set equal to another matrix
 	public operator this()=( other:Matrix ):void
 	{
 		this.matrix = other.array() ;
@@ -50,11 +52,13 @@ public class Matrix
 		// }
 	}
 	
+	// set element at location
 	public operator this( x:Int, y:Int )=( d:double ):void
 	{
 		matrix(x,y) = d ;
 	}
 	
+	// read in array and set elements accordingly
 	public operator this<<( arg:Array[double] ):void
 	{
 		for( [i] in 0..(rows-1) )
@@ -62,6 +66,7 @@ public class Matrix
 				matrix(i,j) = arg(i,j) ;
 	}
 	
+	// multiply two matrices
 	public operator this*( other:Matrix ):Matrix
 	{
 		assert columns == other.num_rows() : 
@@ -82,6 +87,7 @@ public class Matrix
 		return result ;
 	}
 	
+	// multiply matrix by a constant
 	public operator this*( other:double ):Matrix
 	{
 		val result:Matrix = new Matrix( rows, columns, 0d) ;
@@ -96,8 +102,10 @@ public class Matrix
 	
 	public operator ( other:double )*this:Matrix = this*other ;
 	
+	// divide by constant
 	public operator this/( other:double ):Matrix = this*(1/other) ;
-		
+	
+	// add two matrices	
 	public operator this+( other:Matrix ):Matrix
 	{
 		assert rows == other.num_rows() && columns == other.num_columns() : 
@@ -115,6 +123,7 @@ public class Matrix
 		return result ;
 	}
 	
+	// subtract a matrix in place
 	public operator this-( other:Matrix )
 	{
 		assert rows == other.num_rows() && columns == other.num_columns() :
@@ -132,6 +141,7 @@ public class Matrix
 		return result ;
 	}
 	
+	// check if two matrices are equal
 	public operator this->( other:Matrix ):boolean
 	{
 		for( [i,j] in (0..(rows-1))*(0..(columns-1)) )

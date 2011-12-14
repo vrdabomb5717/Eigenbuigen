@@ -8,6 +8,7 @@ public class SceneReader
 		scene = new TwoDScene(particles);
 	}
 	
+	// parse input file
 	public def read(inputFileName:String)
 	{
 		try
@@ -69,6 +70,7 @@ public class SceneReader
 		}
 	}
 	
+	// take given file, detect collisions, apply forces, integrate, and output to file
 	public def animate(dt:scalar, duration:scalar, k:scalar, thickness:scalar, cor:scalar, outputFileName:String )
 	{
 		val output = new File(outputFileName);
@@ -97,7 +99,7 @@ public class SceneReader
 		x10.io.Console.OUT.println( "creating animation" ) ;
 	}
 	
-	
+	// display positions of particles
 	public def write(output:File, p:Printer, dt:double )
 	{
 		try
