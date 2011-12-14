@@ -185,14 +185,6 @@ public class HashCollisionDetectorPar extends CollisionDetector
 				}
 			}
 		} ;
-		
-		// x10.io.Console.OUT.println("Time for finish: " + ((System.nanoTime()-time5)/(1000*1000))) ;
-		
-		for( p in pppairs() )
-		{
-			Console.OUT.print( p + " " ) ;
-		}
-		Console.OUT.println() ;
 	}
 	
 	private def hash(min:Double, max:Double, value:Double, numcells:Int):Int
