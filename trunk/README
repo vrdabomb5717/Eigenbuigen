@@ -28,7 +28,7 @@ Commands in the makefile:
 make simmac - create the simulator from the C++ Simulator_Main.cpp file for mac.
 make simlin - create the simulator for the linux version.
 make functests - tests 64 particles on seq and parallel and checks that their outputs are the same.
-make perftests - checks seq and parallel for increasing numbers of particles.
+make perftests - checks seq and parallel for performance when the number of particles increases.
 make scaletests - checks parallel code's performance for increasing numbers of asyncs.
 make clean - removes all temp files.
 

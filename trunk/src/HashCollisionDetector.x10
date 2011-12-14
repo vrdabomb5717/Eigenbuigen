@@ -35,10 +35,10 @@ public class HashCollisionDetector extends CollisionDetector
 			numcells = Math.sqrt(scene.getNumParticles()) as Int;
 		}
 		
-		var minx:Double = x(0);
-		var maxx:Double = x(0);
-		var miny:Double = x(1);
-		var maxy:Double = x(1);
+		var minx:Double = Double.POSITIVE_INFINITY;
+		var maxx:Double = Double.NEGATIVE_INFINITY;
+		var miny:Double = Double.POSITIVE_INFINITY;
+		var maxy:Double = Double.NEGATIVE_INFINITY;
 		
 		for(var i:Int =0; i < scene.getNumParticles(); i++)
 		{
@@ -82,11 +82,16 @@ public class HashCollisionDetector extends CollisionDetector
 		}
 		
 		for(var i:Int = 0; i < numcells * numcells; i++)
-		{
-			for(val c in hashgrid(i).verts)
+		{			
+			for(var it:Iterator = hashgrid(i).verts.iterator() ; it.hasNext() ; it.advance())
 			{
-				for(val d in hashgrid(i).verts)
+				val c = it.next();
+				
+				var it2:Iterator = it;
+				
+				for( it2 ; it2.hasNext() ; )
 				{
+					val d = it2.next() ;
 					if(c != d)
 						pppairs.add( new Pair[Int, Int]( Math.min( c, d ), Math.max( c, d ) ) );
 				}
