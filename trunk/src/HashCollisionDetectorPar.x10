@@ -84,7 +84,7 @@ public class HashCollisionDetectorPar extends CollisionDetector
 		if(hashgrid == null)
 			hashgrid = new Array[Cell](numcells*numcells, new Cell());
 		
-		val max_async = Math.min( scene.getNumParticles(), 5 ) ;//MAX_ASYNC ) ;
+		val max_async = Math.min( scene.getNumParticles(), MAX_ASYNC ) ;
 		
 		x10.io.Console.OUT.println("Time for detection set up: " + ((System.nanoTime()-time0)/(1000*1000))) ;
 		
