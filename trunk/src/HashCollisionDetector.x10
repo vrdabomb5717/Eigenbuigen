@@ -94,11 +94,11 @@ public class HashCollisionDetector extends CollisionDetector
 			}
 		}
 		
-		for( p in pppairs )
-		{
-			Console.OUT.print( p + " " ) ;
-		}
-		Console.OUT.println() ;
+		// for( p in pppairs )
+		// {
+			// Console.OUT.print( p + " " ) ;
+		// }
+		// Console.OUT.println() ;
 	}
 	
 	private def hash(min:Double, max:Double, value:Double, numcells:Int):Int

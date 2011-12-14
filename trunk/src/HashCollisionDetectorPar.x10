@@ -1,4 +1,5 @@
 import x10.util.*;
+import x10.util.concurrent.*;
 
 public class HashCollisionDetectorPar extends CollisionDetector
 {
@@ -15,9 +16,13 @@ public class HashCollisionDetectorPar extends CollisionDetector
 	{
 		val verts = new HashSet[Int]();
 		
+		// var lock:Lock = new Lock() ;
+		
 		public def add( x:Int )
 		{
+			// while( !lock.tryLock() ) ;
 			atomic verts.add( x ) ;
+			// lock.unlock() ;
 		}
 	}
 
@@ -52,7 +57,7 @@ public class HashCollisionDetectorPar extends CollisionDetector
 	
 	
 	private def findCollidingPairs(scene:TwoDScene, x:VectorXs, pppairs:Accumulator[PPList])
-	{		
+	{
 		if(numcells == 0)
 		{
 			numcells = Math.sqrt(scene.getNumParticles()) as Int;
@@ -139,7 +144,7 @@ public class HashCollisionDetectorPar extends CollisionDetector
 						}
 					}
 					
-					pppairs <- localPP ;
+					pppairs.supply( localPP ) ;
 				}
 			}
 		} ;
