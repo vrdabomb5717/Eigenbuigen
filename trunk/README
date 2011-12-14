@@ -11,8 +11,11 @@ An example of two particles are:
 
 The file test.txt provides an example test of 7 particles colliding.
 
-To run the simulator, please run the SceneTester with the arguments: 
+To run the simulator, please run the SceneTester with the arguments for the sequentail version:
 <inputFileName:String> <outputFileName:String> <num_particles:Int> <dt:Double> <duration:Double> <k:Double> <thickness:Double> <COR:Double>
+
+To run the simulator, please run the SceneTesterPar with the arguments for the parallel version:
+<inputFileName:String> <outputFileName:String> <num_particles:Int> <dt:Double> <duration:Double> <k:Double> <thickness:Double> <COR:Double> <MAX_ASYNC:Int>
 
 The simulator will create an output file with the output of each particle at each time frame.
 You can then run the output with a C++ Simulator_Main.cpp, written using OpenGL, to generate
@@ -21,9 +24,15 @@ in the Makefile might need to be changed, depending on what platform the simulat
 After compiling the C++ file for the simulator please provide the name of the output file name
 as an argument when running the simulator GUI.
 
+Commands in the makefile:
+make simmac - create the simulator from the C++ Simulator_Main.cpp file for mac.
+make simlin - create the simulator for the linux version.
+make functests - tests 64 particles on seq and parallel and checks that their outputs are the same.
+make perftests - checks seq and parallel for increasing numbers of particles.
+make scaletests - checks parallel code's performance for increasing numbers of asyncs.
+make clean - removes all temp files.
 
-The Makefile also works on Athos. Run 'make perftests' to demonstrate scaling. This also suffices for testing functionality testing, which can be run from 'make functests'.
-
+All output files are stored in output/, and test files are in test/.
 
 
 Thanks!
