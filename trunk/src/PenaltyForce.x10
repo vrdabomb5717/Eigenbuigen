@@ -39,7 +39,6 @@ public class PenaltyForce extends Force
 			{
 				force.addParticleParticleGradEToTotal(pos, idx1, idx2, grad);
 			}
-			
 		}
 		
 		val callback = new PenaltyCallback(this, x, gradE);

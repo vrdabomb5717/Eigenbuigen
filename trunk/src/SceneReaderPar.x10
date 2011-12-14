@@ -85,7 +85,7 @@ public class SceneReaderPar
 		
 		for(var i:Double = 0.0; i < duration; i += dt)
 		{
-			x10.io.Console.OUT.println( "dt: " + i ) ;
+			// x10.io.Console.OUT.println( "dt: " + i ) ;
 			val time0 = System.nanoTime();
 			// oldpos = scene.getX();
 			// oldvel = scene.getV();
@@ -95,10 +95,10 @@ public class SceneReaderPar
 			
 			scene.checkConsistency();
 			
-			val time3 = System.nanoTime();
+			// val time3 = System.nanoTime();
 			write( output, p, i ) ;
-			x10.io.Console.OUT.println("Time for printout: " + ((System.nanoTime()-time3)/(1000*1000))) ;
-			x10.io.Console.OUT.println("Time step: " + dt + ": " + ((System.nanoTime()-time0)/(1000*1000))) ;
+			// x10.io.Console.OUT.println("Time for printout: " + ((System.nanoTime()-time3)/(1000*1000))) ;
+			// x10.io.Console.OUT.println("Time step: " + dt + ": " + ((System.nanoTime()-time0)/(1000*1000))) ;
 		}
 		
 		x10.io.Console.OUT.println( "creating animation" ) ;
