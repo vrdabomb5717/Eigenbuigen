@@ -16,13 +16,9 @@ public class HashCollisionDetectorPar extends CollisionDetector
 	{
 		val verts = new HashSet[Int]();
 		
-		// var lock:Lock = new Lock() ;
-		
 		public def add( x:Int )
 		{
-			// while( !lock.tryLock() ) ;
 			atomic verts.add( x ) ;
-			// lock.unlock() ;
 		}
 	}
 
@@ -58,6 +54,8 @@ public class HashCollisionDetectorPar extends CollisionDetector
 	
 	private def findCollidingPairs(scene:TwoDScene, x:VectorXs, pppairs:Accumulator[PPList])
 	{
+		val time0 = System.nanoTime();
+		
 		if(numcells == 0)
 		{
 			numcells = Math.sqrt(scene.getNumParticles()) as Int;
@@ -88,11 +86,16 @@ public class HashCollisionDetectorPar extends CollisionDetector
 		
 		val max_async = Math.min( scene.getNumParticles(), 5 ) ;//MAX_ASYNC ) ;
 		
+		x10.io.Console.OUT.println("Time for detection set up: " + ((System.nanoTime()-time0)/(1000*1000))) ;
+		
+		val time5 = System.nanoTime();
 		
 		clocked finish
 		{
 			for( var i:int = 0 ; i < max_async ; i++ )
 			{
+				val id = i ;
+				
 				val i_start = i*(numcells * numcells)/max_async ;	// find start of async array
 				
 				val i_end = i == max_async-1 ? numcells * numcells : ( i_start + ( numcells * numcells )/max_async ) ;	// find end of async array
@@ -105,10 +108,16 @@ public class HashCollisionDetectorPar extends CollisionDetector
 				
 				clocked async
 				{
+					val time1 = System.nanoTime();
+					
 					for( var j:int = i_start ; j < i_end ; j++ )
 						hashgrid(j).verts.clear() ;
 					
+					x10.io.Console.OUT.println("Time for hashgrid clear: " + id + ": " + ((System.nanoTime()-time1)/(1000*1000))) ;
+					
 					Clock.advanceAll() ;
+					
+					val time2 = System.nanoTime();
 					
 					for( var j:int = n_start ; j < n_end ; j++ )
 					{
@@ -128,7 +137,14 @@ public class HashCollisionDetectorPar extends CollisionDetector
 						}
 					}
 					
+					x10.io.Console.OUT.println("Time for hashgrid setup: " + id + ": " + ((System.nanoTime()-time2)/(1000*1000))) ;
+					
 					Clock.advanceAll() ;
+					
+					val time3 = System.nanoTime();
+					
+					var count:int = 0 ;
+					var avgTime:long = 0 ;//System.nanoTime() ;
 					
 					for( var j:int = i_start ; j < i_end ; j++ )
 					{
@@ -144,10 +160,18 @@ public class HashCollisionDetectorPar extends CollisionDetector
 						}
 					}
 					
+					x10.io.Console.OUT.println("Time for adding localPP: " + id + ": " + ((System.nanoTime()-time3)/(1000*1000))) ;
+					
+					val time4 = System.nanoTime();
+					
 					pppairs.supply( localPP ) ;
+					
+					x10.io.Console.OUT.println("Time for accumulating localPP: " + id + ": " + ((System.nanoTime()-time4)/(1000*1000))) ;
 				}
 			}
 		} ;
+		
+		x10.io.Console.OUT.println("Time for finish: " + ((System.nanoTime()-time5)/(1000*1000))) ;
 	}
 	
 	private def hash(min:Double, max:Double, value:Double, numcells:Int):Int

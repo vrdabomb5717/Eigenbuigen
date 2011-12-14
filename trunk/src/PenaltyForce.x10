@@ -43,7 +43,10 @@ public class PenaltyForce extends Force
 		}
 		
 		val callback = new PenaltyCallback(this, x, gradE);
-		m_detector.performCollisionDetection(m_scene, x, x, callback);		
+		
+		val time2 = System.nanoTime();
+		m_detector.performCollisionDetection(m_scene, x, x, callback);
+		Console.OUT.println("Time for detection: " + ((System.nanoTime()-time2)/(1000*1000))) ;
 	}
 	
 	// Adds the gradient of the penalty potential (-1 * force) for a pair of 
