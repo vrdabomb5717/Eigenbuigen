@@ -34,10 +34,10 @@ public class HashCollisionDetectorPar extends CollisionDetector
 		findCollidingPairs(scene, qe, pppairs);
 		
 		
-		// for( p in pppairs() )
-			// dc.particleParticleCallback( p.first, p.second ) ;
+		for( p in pppairs() )
+			dc.particleParticleCallback( p.first, p.second ) ;
 		
-		val max_async = Math.min( scene.getNumParticles(), MAX_ASYNC ) ;
+		/*val max_async = Math.min( scene.getNumParticles(), MAX_ASYNC ) ;
 		
 		finish
 		{
@@ -58,7 +58,7 @@ public class HashCollisionDetectorPar extends CollisionDetector
 					dc.particleParticleCallback( p.first, p.second ) ;
 				}
 			}
-		}
+		}*/
 	}
 	
 	public class Reducer implements Reducible[PPList]
@@ -76,6 +76,8 @@ public class HashCollisionDetectorPar extends CollisionDetector
 	
 	private def findCollidingPairs(scene:TwoDScene, x:VectorXs, pppairs:Accumulator[PPList])
 	{
+		// val time0 = System.nanoTime();
+		
 		if(numcells == 0)
 		{
 			numcells = Math.sqrt(scene.getNumParticles()) as Int;
@@ -131,10 +133,17 @@ public class HashCollisionDetectorPar extends CollisionDetector
 				
 				clocked async
 				{
+					Console.OUT.println( "sync id: " + id + ":" + n_start + ":" + n_end ) ; 
+					// val time1 = System.nanoTime();
+					
 					for( var j:int = i_start ; j < i_end ; j++ )
 						hashgrid(j).verts.clear() ;
 					
+					// x10.io.Console.OUT.println("Time for hashgrid clear: " + id + ": " + ((System.nanoTime()-time1)/(1000*1000))) ;
+					
 					Clock.advanceAll() ;
+					
+					// val time2 = System.nanoTime();
 					
 					for( var j:int = n_start ; j < n_end ; j++ )
 					{
@@ -144,20 +153,37 @@ public class HashCollisionDetectorPar extends CollisionDetector
 						
 						val py1 = hash(miny, maxy, x(2*j+1)-r, numcells);
 						val py2 = hash(miny, maxy, x(2*j+1)+r, numcells);
-						
+						// Console.OUT.println( id + ":" + x(2*j) + " " + x(2*j+1) + " resolving: " + px1 + ":" + px2 + ":" + py1 + ":" + py2 ) ;
 						for( var a:Int = px1; a <= px2; a++ )
 						{
 							for( var b:Int = py1; b <= py2; b++ )
 							{
+								if( numcells*a+b == 1 )
+									// Console.OUT.println( id + ":" + x(2*j) + " " + x(2*j+1) + " resolving: " + px1 + ":" + px2 + ":" + py1 + ":" + py2 ) ; 
 								hashgrid( numcells * a + b ).add( j ) ;
 							}
 						}
 					}
 					
+					// Console.OUT.println( "verts1 size: " + hashgrid(1).verts.size() ) ;
+					
+					// for( var k:int = n_start ; k < n_end ; k++ )
+						// Console.OUT.println( id + ":" + k + ":cellsize: " + hashgrid(k).verts.size() ) ;
+					
+					
+					// x10.io.Console.OUT.println("Time for hashgrid setup: " + id + ": " + ((System.nanoTime()-time2)/(1000*1000))) ;
+					
 					Clock.advanceAll() ;
+					
+					// val time3 = System.nanoTime();
+					
+					// var count:int = 0 ;
+					// var avgTime:long = 0 ;//System.nanoTime() ;
 					
 					for( var j:int = i_start ; j < i_end ; j++ )
 					{
+						// Console.OUT.println( id + ":" + j + ":cell size: " + hashgrid(j).verts.size() ) ;
+						
 						val verts = new Array[Int](hashgrid(j).verts.size());
 						val it = hashgrid(j).verts.iterator() ;
 						
@@ -173,16 +199,32 @@ public class HashCollisionDetectorPar extends CollisionDetector
 								val d = verts(l) ;
 								if( c != d )
 								{
+									// count++ ;
 									localPP.add( new Pair[Int, Int]( Math.min( c, d ), Math.max( c, d ) ) ) ;
 								}
 							}
 						}
 					}
 					
+					// x10.io.Console.OUT.println("Time for adding localPP: " + id + ": " + ((System.nanoTime()-time3)/(1000*1000))) ;
+					
+					// val time4 = System.nanoTime();
+					
 					pppairs.supply( localPP ) ;
+					
+					// x10.io.Console.OUT.println("Time for accumulating localPP: " + id + ": " + ((System.nanoTime()-time4)/(1000*1000))) ;
+					// Console.OUT.println( id + ":count: " + count ) ;
 				}
 			}
 		} ;
+		
+		// x10.io.Console.OUT.println("Time for finish: " + ((System.nanoTime()-time5)/(1000*1000))) ;
+		
+		for( p in pppairs() )
+		{
+			Console.OUT.print( p + " " ) ;
+		}
+		Console.OUT.println() ;
 	}
 	
 	private def hash(min:Double, max:Double, value:Double, numcells:Int):Int
