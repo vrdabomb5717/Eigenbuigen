@@ -36,29 +36,6 @@ public class HashCollisionDetectorPar extends CollisionDetector
 		
 		for( p in pppairs() )
 			dc.particleParticleCallback( p.first, p.second ) ;
-		
-		/*val max_async = Math.min( scene.getNumParticles(), MAX_ASYNC ) ;
-		
-		finish
-		{
-			for( var i:int = 0 ; i < max_async ; i++ )
-			{
-				val i_start = i*pppairs().size()/max_async ;	// find start of async array
-				
-				val i_end = i == max_async-1 ? pppairs().size() : ( i_start + pppairs().size()/max_async ) ;	// find end of async array
-				
-				val it = pppairs().iterator() ;
-				
-				for( var j:int = 0 ; j < i_start ; j++ )
-					it.next() ;
-				
-				for( var j:int = i_start ; j < i_end ; j++ )
-				{
-					val p = it.next() ;
-					dc.particleParticleCallback( p.first, p.second ) ;
-				}
-			}
-		}*/
 	}
 	
 	public class Reducer implements Reducible[PPList]
@@ -104,16 +81,14 @@ public class HashCollisionDetectorPar extends CollisionDetector
 		}
 		
 		if(hashgrid == null)
+		{
 			hashgrid = new Array[Cell](numcells*numcells, new Cell());
 		
-		for( var i:int = 0 ; i < hashgrid.size ; i++ )
-			hashgrid(i) = new Cell() ;
+			for( var i:int = 0 ; i < hashgrid.size ; i++ )
+				hashgrid(i) = new Cell() ;
+		}
 		
 		val max_async = Math.min( scene.getNumParticles(), MAX_ASYNC ) ;
-		
-		// x10.io.Console.OUT.println("Time for detection set up: " + ((System.nanoTime()-time0)/(1000*1000))) ;
-		
-		// val time5 = System.nanoTime();
 		
 		clocked finish
 		{
@@ -127,9 +102,11 @@ public class HashCollisionDetectorPar extends CollisionDetector
 				
 				val n_start = i*(scene.getNumParticles())/max_async ;	// find start of async array
 				
-				val n_end = i == max_async-1 ? scene.getNumParticles() : ( i_start + scene.getNumParticles()/max_async ) ;	// find end of async array
+				val n_end = i == max_async-1 ? scene.getNumParticles() : ( n_start + scene.getNumParticles()/max_async ) ;	// find end of async array
 				
 				val localPP = new PPList() ;
+				
+				Console.OUT.println( id + ":" + n_start + ":" + n_end ) ;
 				
 				clocked async
 				{
@@ -151,6 +128,7 @@ public class HashCollisionDetectorPar extends CollisionDetector
 						{
 							for( var b:Int = py1; b <= py2; b++ )
 							{
+								Console.OUT.println( id + ": adding: " + j + " at " + (numcells * a + b) ) ;
 								hashgrid( numcells * a + b ).add( j ) ;
 							}
 						}
@@ -165,7 +143,6 @@ public class HashCollisionDetectorPar extends CollisionDetector
 						
 						for( var k:int = 0 ; k < hashgrid(j).verts.size() ; k++ )
 							verts(k) = it.next() ;
-							
 						
 						for( var k:int = 0 ; k < verts.size ; k++ )
 						{
@@ -185,6 +162,12 @@ public class HashCollisionDetectorPar extends CollisionDetector
 				}
 			}
 		} ;
+		
+		for( p in pppairs() )
+		{
+			Console.OUT.print( p + " " ) ;
+		}
+		Console.OUT.println() ;
 	}
 	
 	private def hash(min:Double, max:Double, value:Double, numcells:Int):Int
