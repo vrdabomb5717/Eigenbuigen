@@ -5,7 +5,6 @@ public class HashCollisionDetector extends CollisionDetector
 
 	static type PPList = HashSet[Pair[Int,Int]];
 
-
 	static class Cell
 	{
 		val verts = new HashSet[Int]();
@@ -83,7 +82,7 @@ public class HashCollisionDetector extends CollisionDetector
 		}
 		
 		for(var i:Int = 0; i < numcells * numcells; i++)
-		{			
+		{
 			for(val c in hashgrid(i).verts)
 			{
 				for(val d in hashgrid(i).verts)

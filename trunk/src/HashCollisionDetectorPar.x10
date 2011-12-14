@@ -33,9 +33,27 @@ public class HashCollisionDetectorPar extends CollisionDetector
 		
 		findCollidingPairs(scene, qe, pppairs);
 		
-		for( p:Pair[Int,Int] in pppairs() )
+		val max_async = Math.min( scene.getNumParticles(), MAX_ASYNC ) ;
+		
+		finish
 		{
-			dc.particleParticleCallback(p.first, p.second);
+			for( var i:int = 0 ; i < max_async ; i++ )
+			{
+				val i_start = i*pppairs().size()/max_async ;	// find start of async array
+				
+				val i_end = i == max_async-1 ? pppairs().size() : ( i_start + pppairs().size()/max_async ) ;	// find end of async array
+				
+				val it = pppairs().iterator() ;
+				
+				for( var j:int = 0 ; j < i_start ; j++ )
+					it.next() ;
+				
+				for( var j:int = i_start ; j < i_end ; j++ )
+				{
+					val p = it.next() ;
+					dc.particleParticleCallback( p.first, p.second ) ;
+				}
+			}
 		}
 	}
 	
@@ -172,6 +190,12 @@ public class HashCollisionDetectorPar extends CollisionDetector
 		} ;
 		
 		x10.io.Console.OUT.println("Time for finish: " + ((System.nanoTime()-time5)/(1000*1000))) ;
+		
+		for( p in pppairs() )
+		{
+			Console.OUT.print( p + " " ) ;
+		}
+		Console.OUT.println() ;
 	}
 	
 	private def hash(min:Double, max:Double, value:Double, numcells:Int):Int
