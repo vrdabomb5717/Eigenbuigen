@@ -34,10 +34,10 @@ public class HashCollisionDetectorPar extends CollisionDetector
 		findCollidingPairs(scene, qe, pppairs);
 		
 		
-		// for( p in pppairs() )
-			// dc.particleParticleCallback( p.first, p.second ) ;
+		for( p in pppairs() )
+			dc.particleParticleCallback( p.first, p.second ) ;
 		
-		val max_async = Math.min( scene.getNumParticles(), MAX_ASYNC ) ;
+		/*val max_async = Math.min( scene.getNumParticles(), MAX_ASYNC ) ;
 		
 		finish
 		{
@@ -47,21 +47,18 @@ public class HashCollisionDetectorPar extends CollisionDetector
 				
 				val i_end = i == max_async-1 ? pppairs().size() : ( i_start + pppairs().size()/max_async ) ;	// find end of async array
 				
-				async
+				val it = pppairs().iterator() ;
+				
+				for( var j:int = 0 ; j < i_start ; j++ )
+					it.next() ;
+				
+				for( var j:int = i_start ; j < i_end ; j++ )
 				{
-					val it = pppairs().iterator() ;
-					
-					for( var j:int = 0 ; j < i_start ; j++ )
-						it.next() ;
-					
-					for( var j:int = i_start ; j < i_end ; j++ )
-					{
-						val p = it.next() ;
-						dc.particleParticleCallback( p.first, p.second ) ;
-					}
+					val p = it.next() ;
+					dc.particleParticleCallback( p.first, p.second ) ;
 				}
 			}
-		}
+		}*/
 	}
 	
 	public class Reducer implements Reducible[PPList]
