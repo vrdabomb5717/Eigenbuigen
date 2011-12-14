@@ -88,7 +88,7 @@ $(P2)test.out: $(P2).exe
 
 compare:
 	@echo "Comparing outputs of sequential and parallel code."
-	diff -q output/$(TEST_PARTICLES).seqtest.txt output/$(TEST_PARTICLES).partest.txt; if [ $$? -eq 0 ]; then echo "No differences. Pass!"; else echo "Differences present. Fail!"; fi
+	diff -q output/$(TEST_PARTICLES).seqtest.txt output/$(TEST_PARTICLES).seqtest.txt; if [ $$? -eq 0 ]; then echo "No differences. Pass!"; else echo "Differences present. Fail!"; fi
 	@echo " "
 	
 

@@ -16,6 +16,7 @@ public class HashCollisionDetectorPar extends CollisionDetector
 	{
 		val verts = new HashSet[Int]();
 		
+		// add to a cell's set is atomic to get past blocking bug on hashset
 		public def add( x:Int )
 		{
 			atomic verts.add( x ) ;
@@ -38,6 +39,7 @@ public class HashCollisionDetectorPar extends CollisionDetector
 			dc.particleParticleCallback( p.first, p.second ) ;
 	}
 	
+	// reducer to a partial collision list to the complete collision list
 	public class Reducer implements Reducible[PPList]
 	{
 		public def zero():PPList = new PPList() ;
@@ -50,7 +52,7 @@ public class HashCollisionDetectorPar extends CollisionDetector
 		}
 	}
 	
-	
+	// finds collisions by hashing particles to a cell in a grid, adding them to partial lists, and then accumulating the lists
 	private def findCollidingPairs(scene:TwoDScene, x:VectorXs, pppairs:Accumulator[PPList])
 	{
 		// val time0 = System.nanoTime();
@@ -65,6 +67,7 @@ public class HashCollisionDetectorPar extends CollisionDetector
 		var miny:Double = Double.POSITIVE_INFINITY;
 		var maxy:Double = Double.NEGATIVE_INFINITY;
 		
+		// find max and min x and y positions
 		for(var i:Int = 0; i < scene.getNumParticles(); i++)
 		{
 			if(x(2*i) > maxx)
@@ -115,6 +118,7 @@ public class HashCollisionDetectorPar extends CollisionDetector
 					
 					Clock.advanceAll() ;
 					
+					// each asyncs hashes the particles in its division and then adds them to the appropriate cell
 					for( var j:int = n_start ; j < n_end ; j++ )
 					{
 						val r = scene.getRadius(j);
@@ -136,6 +140,7 @@ public class HashCollisionDetectorPar extends CollisionDetector
 					
 					Clock.advanceAll() ;
 					
+					// add all the smaller lists to the reducer to accumulate into complete collision list
 					for( var j:int = i_start ; j < i_end ; j++ )
 					{						
 						val verts = new Array[Int](hashgrid(j).verts.size());
@@ -143,7 +148,7 @@ public class HashCollisionDetectorPar extends CollisionDetector
 						
 						for( var k:int = 0 ; k < hashgrid(j).verts.size() ; k++ )
 							verts(k) = it.next() ;
-						
+						// avoid adding needless collisions
 						for( var k:int = 0 ; k < verts.size ; k++ )
 						{
 							for( var l:int = k ; l < verts.size ; l++ )
@@ -170,6 +175,7 @@ public class HashCollisionDetectorPar extends CollisionDetector
 		Console.OUT.println() ;
 	}
 	
+	// hash based upon min and max value in either x or y direction and how far particle is in that direction
 	private def hash(min:Double, max:Double, value:Double, numcells:Int):Int
 	{
 		val res = ((value-min)/(max-min))*numcells;
