@@ -53,8 +53,12 @@ P2_SCALE_PARTICLES=100
 
 all: main
 
-main: $(Main) $(HEdge) $(GLScene)
+simmac: $(Main)
 	$(CC) -g -o $(ExeName) $(Main) $(MacFramework)
+
+simlin: $(Main)
+	$(CC) -g -o $(ExeName) $(Main) $(LinuxFramework)
+
 
 clean:
 	rm -f $(ExeName) $(P1).exe $(P2).exe *.cc *.h
