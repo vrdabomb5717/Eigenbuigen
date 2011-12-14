@@ -11,8 +11,8 @@ public class HashCollisionDetectorPar extends CollisionDetector
 	{
 		MAX_ASYNC = max_async ;
 	}
-
-	static class Cell
+	
+	class Cell
 	{
 		val verts = new HashSet[Int]();
 		
@@ -83,10 +83,10 @@ public class HashCollisionDetectorPar extends CollisionDetector
 			numcells = Math.sqrt(scene.getNumParticles()) as Int;
 		}
 		
-		var minx:Double = x(0);
-		var maxx:Double = x(0);
-		var miny:Double = x(1);
-		var maxy:Double = x(1);
+		var minx:Double = Double.POSITIVE_INFINITY;
+		var maxx:Double = Double.NEGATIVE_INFINITY;
+		var miny:Double = Double.POSITIVE_INFINITY;
+		var maxy:Double = Double.NEGATIVE_INFINITY;
 		
 		for(var i:Int = 0; i < scene.getNumParticles(); i++)
 		{
@@ -105,6 +105,9 @@ public class HashCollisionDetectorPar extends CollisionDetector
 		
 		if(hashgrid == null)
 			hashgrid = new Array[Cell](numcells*numcells, new Cell());
+		
+		for( var i:int = 0 ; i < hashgrid.size ; i++ )
+			hashgrid(i) = new Cell() ;
 		
 		val max_async = Math.min( scene.getNumParticles(), MAX_ASYNC ) ;
 		
@@ -130,6 +133,7 @@ public class HashCollisionDetectorPar extends CollisionDetector
 				
 				clocked async
 				{
+					Console.OUT.println( "sync id: " + id + ":" + n_start + ":" + n_end ) ; 
 					// val time1 = System.nanoTime();
 					
 					for( var j:int = i_start ; j < i_end ; j++ )
@@ -149,15 +153,23 @@ public class HashCollisionDetectorPar extends CollisionDetector
 						
 						val py1 = hash(miny, maxy, x(2*j+1)-r, numcells);
 						val py2 = hash(miny, maxy, x(2*j+1)+r, numcells);
-						
+						// Console.OUT.println( id + ":" + x(2*j) + " " + x(2*j+1) + " resolving: " + px1 + ":" + px2 + ":" + py1 + ":" + py2 ) ;
 						for( var a:Int = px1; a <= px2; a++ )
 						{
 							for( var b:Int = py1; b <= py2; b++ )
 							{
+								if( numcells*a+b == 1 )
+									// Console.OUT.println( id + ":" + x(2*j) + " " + x(2*j+1) + " resolving: " + px1 + ":" + px2 + ":" + py1 + ":" + py2 ) ; 
 								hashgrid( numcells * a + b ).add( j ) ;
 							}
 						}
 					}
+					
+					// Console.OUT.println( "verts1 size: " + hashgrid(1).verts.size() ) ;
+					
+					// for( var k:int = n_start ; k < n_end ; k++ )
+						// Console.OUT.println( id + ":" + k + ":cellsize: " + hashgrid(k).verts.size() ) ;
+					
 					
 					// x10.io.Console.OUT.println("Time for hashgrid setup: " + id + ": " + ((System.nanoTime()-time2)/(1000*1000))) ;
 					
@@ -170,12 +182,24 @@ public class HashCollisionDetectorPar extends CollisionDetector
 					
 					for( var j:int = i_start ; j < i_end ; j++ )
 					{
-						for( val c in hashgrid(j).verts )
+						// Console.OUT.println( id + ":" + j + ":cell size: " + hashgrid(j).verts.size() ) ;
+						
+						val verts = new Array[Int](hashgrid(j).verts.size());
+						val it = hashgrid(j).verts.iterator() ;
+						
+						for( var k:int = 0 ; k < hashgrid(j).verts.size() ; k++ )
+							verts(k) = it.next() ;
+							
+						
+						for( var k:int = 0 ; k < verts.size ; k++ )
 						{
-							for( val d in hashgrid(j).verts )
+							for( var l:int = k ; l < verts.size ; l++ )
 							{
+								val c = verts(k) ;
+								val d = verts(l) ;
 								if( c != d )
 								{
+									// count++ ;
 									localPP.add( new Pair[Int, Int]( Math.min( c, d ), Math.max( c, d ) ) ) ;
 								}
 							}
@@ -189,22 +213,24 @@ public class HashCollisionDetectorPar extends CollisionDetector
 					pppairs.supply( localPP ) ;
 					
 					// x10.io.Console.OUT.println("Time for accumulating localPP: " + id + ": " + ((System.nanoTime()-time4)/(1000*1000))) ;
+					// Console.OUT.println( id + ":count: " + count ) ;
 				}
 			}
 		} ;
 		
 		// x10.io.Console.OUT.println("Time for finish: " + ((System.nanoTime()-time5)/(1000*1000))) ;
 		
-		// for( p in pppairs() )
-		// {
-			// Console.OUT.print( p + " " ) ;
-		// }
-		// Console.OUT.println() ;
+		for( p in pppairs() )
+		{
+			Console.OUT.print( p + " " ) ;
+		}
+		Console.OUT.println() ;
 	}
 	
 	private def hash(min:Double, max:Double, value:Double, numcells:Int):Int
 	{
-		val res = (value-min)/(max-min)*numcells;
+		val res = ((value-min)/(max-min))*numcells;
+		// Console.OUT.println( "res: " + res + ":" + (numcells-1) ) ;
 		return Math.max(Math.min( numcells-1, res as Int), 0);
 	}
 }
