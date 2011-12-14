@@ -48,7 +48,7 @@ public class HashCollisionDetectorPar extends CollisionDetector
 		public def zero():PPList = new PPList() ;
 		
 		public operator this(var a:PPList, var b:PPList ):PPList 
-		{
+		{ 
 			for( p in b )
 				a.add( p ) ;
 			return a ;
@@ -68,7 +68,7 @@ public class HashCollisionDetectorPar extends CollisionDetector
 		var miny:Double = x(1);
 		var maxy:Double = x(1);
 		
-		for(var i:Int =0; i < scene.getNumParticles(); i++)
+		for(var i:Int = 0; i < scene.getNumParticles(); i++)
 		{
 			if(x(2*i) > maxx)
 				maxx = x(2*i);
@@ -91,7 +91,7 @@ public class HashCollisionDetectorPar extends CollisionDetector
 		
 		clocked finish
 		{
-			for( [i] in 0..( max_async-1 ) )
+			for( var i:int = 0 ; i < max_async ; i++ )
 			{
 				val i_start = i*(numcells * numcells)/max_async ;	// find start of async array
 				
@@ -105,12 +105,12 @@ public class HashCollisionDetectorPar extends CollisionDetector
 				
 				clocked async
 				{
-					for( [j] in i_start..(i_end-1) )
+					for( var j:int = i_start ; j < i_end ; j++ )
 						hashgrid(j).verts.clear() ;
 					
 					Clock.advanceAll() ;
 					
-					for( [j] in n_start..(n_end-1) )
+					for( var j:int = n_start ; j < n_end ; j++ )
 					{
 						val r = scene.getRadius(j);
 						val px1 = hash(minx, maxx, x(2*j)-r, numcells);
@@ -130,7 +130,7 @@ public class HashCollisionDetectorPar extends CollisionDetector
 					
 					Clock.advanceAll() ;
 					
-					for( [j] in i_start..( i_end-1 ) )
+					for( var j:int = i_start ; j < i_end ; j++ )
 					{
 						for( val c in hashgrid(j).verts )
 						{

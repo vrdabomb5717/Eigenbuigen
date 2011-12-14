@@ -69,7 +69,7 @@ public class SceneReaderPar
 		}
 	}
 	
-	public def animate(dt:scalar, duration:scalar, k:scalar, thickness:scalar, cor:scalar, outputFileName:String, max_async:Int )
+	public def animate( dt:scalar, duration:scalar, k:scalar, thickness:scalar, cor:scalar, outputFileName:String, max_async:Int )
 	{
 		val output = new File(outputFileName);
 		val p = output.printer();
@@ -85,6 +85,7 @@ public class SceneReaderPar
 		
 		for(var i:Double = 0.0; i < duration; i += dt)
 		{
+			x10.io.Console.OUT.println( "dt: " + i ) ;
 			// oldpos = scene.getX();
 			// oldvel = scene.getV();
 			
