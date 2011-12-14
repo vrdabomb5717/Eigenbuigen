@@ -138,17 +138,11 @@ public class HashCollisionDetectorPar extends CollisionDetector
 							}
 						}
 					}
+					
+					pppairs <- localPP ;
 				}
-				
-				pppairs <- localPP ;
 			}
 		} ;
-		
-		for( p in pppairs() )
-		{
-			Console.OUT.print( p + " " ) ;
-		}
-		Console.OUT.println() ;
 	}
 	
 	private def hash(min:Double, max:Double, value:Double, numcells:Int):Int
