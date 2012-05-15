@@ -1,0 +1,14 @@
+README
+
+This project allows the user to define particles, and simulate their collisions.
+
+Please see the Sequential branch or trunk (for the parallel version) for more information.
+
+LICENSE
+
+All source code is licensed under the Simplified BSD license (2-clause BSD). All documentation is licensed under the FreeBSD Documentation License.
+
+Thanks!
+
+Nathaniel Clinger
+Varun Ravishankar
